@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
-	<title>main</title>
+	<title>Document</title>
 </head>
-
 <body>
-	<a href="/users/create">signup</a>
-
-	<form action="/users/check" method="post">
-		<input type="text" name="id">
-		<input type="password" name="password">
-		<input type="submit">
+	<h1>메인 화면</h1>
+	
+	<form action="/users/logout" method="post">
+		<button>Logout</button>
 	</form>
-</body>
+	
+	<form action="/users/mypage">
+		<button>mypage</button>
+	</form>
+	
+	<form action="/users/writer">
+		<button>writer</button>
+	</form>
+	
+	<div>
+		<% if(write.length > 0) { %>
 
+			<% for( var i = 0; i < write.length; i++) { %>
+			
+
+			<div onclick="location.href ='/users/writer/read/<%= write[i]._id %>'">
+				<p><%= write[i].name %> </p>
+				<p><%= write[i].unit %> </p>
+				<p><%= write[i].maxTime %> </p>
+				<p><%= write[i].minTime %> </p>
+				<p><%= write[i].count %> </p>
+			</div>
+			<hr>
+
+
+			<% } %>
+
+		<% } else {%>
+		<div>Not Exist</div>
+		<% } %>
+	</div>
+	
+</body>
 </html>

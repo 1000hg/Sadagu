@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<p>이름 : <%= user.name %></p>
+
+	<p>생년월일 : <%= user.birth %></p>
+	<p>전화번호 : <%= user.phoneNum %></p>
+	<p>email : <%= user.eMail %></p>
+	<p>계좌번호 : <%= user.account %></p>
+	<p>주소 : <%= user.address %></p>
+	<p>신용도 : <%= user.credit %></p>
+	
+	<form action="/users/writer">
+		<button>writer</button>
+	</form>
+	
+	
+	<div>
+		<% if(write.length > 0) { %>
+
+			<% for( var i = 0; i < write.length; i++) { %>
+			
+
+			<div>
+				<div onclick="location.href ='/users/writer/read/<%= write[i]._id %>'">
+					<p><%= write[i].name %> </p>
+					<p><%= write[i].unit %> </p>
+					<p><%= write[i].maxTime %> </p>
+					<p><%= write[i].minTime %> </p>
+					<p><%= write[i].count %> </p>
+				</div>
+				<form action="/users/writer/delete/<%= write[i]._id %>" method="post">
+					<input type="submit" value="삭제">
+				</form>
+	
+			</div>
+			<hr>
+
+
+			<% } %>
+
+		<% } else {%>
+		<div>Not Exist</div>
+		<% } %>
+	</div>
+</body>
+</html>

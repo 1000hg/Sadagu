@@ -1,62 +1,238 @@
 var User = require("../models/User");
+var Write = require("../models/Write");
+var express = require('express');
+var router = express.Router();
+
+
 
 var userController = {};
 
 
 
-userController.main = function(req, res){
-	res.render("../views/Users/main");
+
+userController.login = function (req, res) {
+	if (req.session.logined)
+		res.render('../views/Users/main')
+	else {
+		res.render('../views/Users/login')
+	}
 }
 
-userController.create = function(req, res){
+
+
+userController.postLogin = function (req, res) {
+	var id = req.body.id;
+	var password = req.body.password;
+
+
+	User.findOne({
+		id: id,
+		password: password
+	}, function (err, user) {
+		if (err) console.log("505Error");
+		else if (!user) return res.status(404).json({
+			error: 'user not found'
+		});
+		else {
+			req.session.regenerate(function () {
+				req.session.logined = true;
+				req.session.user_id = id;
+
+				/*res.render('../views/Users/main', {
+					session: req.session
+				})*/
+				
+				res.redirect('/users/main');
+
+			})
+		}
+
+	});
+}
+
+
+userController.main = function(req, res) {
+	
+	Write.find({}, function(err, write) {
+		if (!err) { 
+			res.render('../views/Users/main',{
+				write : write
+			})
+		}
+		else {
+			console.log(err);
+		}
+	});
+}
+
+
+userController.logout = function (req, res) {
+	req.session.destroy();
+	res.redirect('/users/login');
+}
+
+
+
+userController.create = function (req, res) {
 	res.render("../views/Users/create");
 }
 
 
-userController.save = function(req, res){
+userController.save = function (req, res) {
+	req.body.credit = 0;
 	var user = new User(req.body);
-	
-	user.save(function(err){
-		if(err){
+
+	user.save(function (err) {
+		if (err) {
 			var e = "";
-			if(err.code == 11000){
+			if (err.code == 11000) {
 				e = "User already exists";
 				console.log(e);
 			}
+			
+			console.log(err);
+			
 			console.log("Failed save");
 			res.redirect("/users/create");
-		}
-		else
-		{
+		} else {
 			console.log("Success save");
 			saveUserInfo(user);
-			res.redirect("/users");
+			res.redirect("/users/login");
 		}
 	})
 }
 
-function saveUserInfo(user){
-	var info = {id: user._id, name: user.name, birth: user.birth, phoneNum: user.phoneNum, id: user.id, password: user.password, eMail: user.eMail, account: user.account, address: user.address}
+userController.find = function (req, res) {
+	res.render("../views/Users/find");
+}
+
+userController.info = function(req, res){
 	
-	var user = new User(info);
+	var name = req.body.name;
+	var birth = req.body.birth;
+	var phoneNum = req.body.phoneNum;
+	var eMail = req.body.eMail;
+	
+	User.findOne({
+		name: name,
+		birth: birth,
+		phoneNum: phoneNum,
+		eMail: eMail
+	}, function(err, user){
 		
-	user.save(function(err){
-		if(err){
-			
-			if(err.code == 11000){
-				console.log("Character does not exist");
-			}
-			
-			console.log("Failed save");
-		}
+		if(err) console.log("505Error");
+		
+		
+		else if (!user) return res.status(404).json({
+			error: 'user not found'
+		});
+		
 		else{
-			console.log("Success save char");
+			res.render('../views/Users/info',{
+				user: user
+			});
 		}
-	
 	})
 }
+
+
+
+
+
+userController.mypage = function (req, res) {
+	
+	var user = req.session.user_id;
+
+	User.findOne({
+		user: user.id
+	}, function (err, user) {
+
+		if (err) console.log("505Error");
+
+		else if (!user) return res.status(404).json({
+			error: 'user not found'
+		});
+		else {
+			
+			Write.find({writer:user.id}, function(err, write) {
+			if (req.session.logined)
+				res.render('../views/Users/mypage', {
+					user: user, 
+					write:write
+				});
+			else
+				res.redirect("/users/login");
+	});
+		}
+
+	})
+}
+
+
+
+
+
+userController.writer = function (req, res) {
+	if (req.session.logined)
+		res.render('../views/Users/writer');
+	else
+		res.redirect("/users/login");
+}
+
+
+/*userController.check = function(req, res){
+	var id = req.body.id;
+	var password = req.body.password;
+	
+	
+	User.findOne({id: id, password: password}, function(err, user){
+		if(err) console.log("505Error");
+		else if(!user) return res.status(404).json({error: 'user not found'});
+		else{
+			console.log("login success");
+			res.render("../views/Users/main");
+		}
+	})
+}*/
+
+
+
+
+
+
+
+function saveUserInfo(user) {
+	var info = {
+		_id: user._id,
+		name: user.name,
+		birth: user.birth,
+		phoneNum: user.phoneNum,
+		id: user.id,
+		password: user.password,
+		eMail: user.eMail,
+		account: user.account,
+		address: user.address,
+		credit: user.credit
+	}
+
+	var user = new User(info);
+
+	user.save(function (err) {
+		if (err) {
+
+			if (err.code == 11000) {
+				console.log("User does not exist");
+			}
+
+			console.log("Failed save");
+		} else {
+			console.log("Success save user");
+		}
+
+	})
+}
+
 
 
 
 module.exports = userController;
-		

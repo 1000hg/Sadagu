@@ -11,6 +11,14 @@ var app = express();
 
 var mongoose = require('mongoose');
 
+var session = require('express-session');
+
+app.use(session({
+	secret: 'aaaaa',
+	resave: false,
+	saveUninitialized: true
+}));
+
 mongoose.connect('mongodb://localhost:27017/SadaguDB').then(() => console.log("connect Success")).catch((err) => console.log(err));
 
 // view engine setup

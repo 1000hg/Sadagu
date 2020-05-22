@@ -8,7 +8,8 @@ var UserSchema = new mongoose.Schema({
 	phoneNum : {type: String, required: true, unique: true},
 	eMail : {type: String, required: true, unique: true},
 	account : {type: String, required: true, unique: true},
-	address : {type: String, required: true}
+	address : {type: String, required: true},
+	credit : {type: String, required: true}
 });
 
 module.exports = mongoose.model('User', UserSchema); 
