@@ -13,5 +13,12 @@
 	<p>계좌번호 : <%= user.account %></p>
 	<p>주소 : <%= user.address %></p>
 	<p>신용도 : <%= user.credit %></p>
+	
+	<form action="/users/login" method="post">
+		<input type="text" style="display:none" value="<%= user.id%>" name="id">
+		<input type="text" style="display:none" value="<%= user.password%>" name="password">
+		<input type="submit" value="로그인">
+	</form>
+
 </body>
 </html>

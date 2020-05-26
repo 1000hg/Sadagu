@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var WriteSchema = new mongoose.Schema({
 	url : {type: String},
 	minPrice : {type: String, required: true},
-	maxPrice : {type: String, required: true},
+	maxPrice : {type: Number, required: true},
 	unit : {type: String, required: true},
 	minTime : {type: Date, required: true},
 	maxTime : {type: Date, required: true},

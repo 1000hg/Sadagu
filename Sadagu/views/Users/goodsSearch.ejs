@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+		<div>
+		<% if(goods.length > 0) { %>
+
+			<% for( var i = 0; i < goods.length; i++) { %>
+			
+
+			<div>
+				<p><%= goods[i].name %> </p>
+				<p><%= goods[i].price %> </p>
+			</div>
+			<hr>
+
+
+			<% } %>
+
+		<% } else {%>
+		<div>Not Exist</div>
+		<% } %>
+	</div>
+</body>
+</html>

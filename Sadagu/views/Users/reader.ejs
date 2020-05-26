@@ -10,8 +10,8 @@
 	<p><%= write.maxPrice %></p>
 	
 	
-	<form action="#" method="post">
-		<input type="text">
+	<form action="/users/writer/read/buy/<%= write.id %>" method="post">
+		<input type="text" name="money">
 		<input type="submit" value="확인">
 	</form>
 </body>

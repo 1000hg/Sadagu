@@ -13,7 +13,7 @@ writeController.submit = function(req, res){
 	var user = req.session.user_id;
 	req.body.writer = user;
 	req.body.url = "aa";
-	req.body.maxPrice = "0";
+	req.body.maxPrice = 0;
 	req.body.minTime = today.toLocaleString();
 	//console.log(req.body);
 	var writer = new Write(req.body);
@@ -89,6 +89,48 @@ writeController.read = function(req, res){
 	})
 	
 }
+
+
+
+writeController.search = function(req, res){
+	
+	var name = new RegExp(req.body.name);
+	
+	Write.find({name: name}, function(err, write) {
+		if (!err) {
+			res.render('../views/Users/writerSearch', {write:write});
+		}
+		else {
+			console.log(err);
+		}
+	});
+}
+
+
+
+writeController.buy = function(req, res){
+	
+	var writeId = req.params.id;
+	var money = req.body.money;
+	
+	Write.findOne({_id:writeId}, function(err, write){
+		if (!err) {
+			if(Number(money) < write.unit){
+				console.log(money + "     " + write.unit);
+				console.log("이건 좀..");
+			}
+			else{
+				var addUnit = write.maxPrice + Number(money);
+				Write.findOneAndUpdate({ _id: write._id }, { $set: { maxPrice: addUnit } }, { new: true }, function(err, doc) {
+					if(err)
+						console.log(err);
+					else
+						res.redirect('/users/writer/read/' + writeId);
+				});
+			}
+	
+}
+	})}
 
 
 
