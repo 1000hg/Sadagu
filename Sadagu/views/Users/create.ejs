@@ -1,20 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<link rel="stylesheet" href="/stylesheets/sign/sign.css">
+
+	<script>
+		var now_img, next_img;
+
+		function fade_change() {
+			now_img = $(".fade_container img:eq(0)");
+			next_img = $(".fade_container img:eq(1)");
+			next_img.addClass("active").css("opacity", 0).animate({
+				"opacity": 1
+			}, 6000, function() {
+				$(".fade_container").append(now_img);
+				now_img.removeClass("active");
+			});
+		}
+
+		var timer = setInterval("fade_change()", 5000);
+	</script>
+
 </head>
+
 <body>
-	<form action="/users/save" method="post">
-		<input type="text" name="name" placeholder="name">
-		<input type="text" name="id" placeholder="id">
-		<input type="password" name="password" placeholder="password">
-		<input type="text" name="birth" placeholder="birth">
-		<input type="text" name="phoneNum" placeholder="phoneNum">
-		<input type="text" name="eMail" placeholder="eMail">
-		<input type="text" name="account" placeholder="account">
-		<input type="text" name="address" placeholder="address">
-		<input type="submit">
-	</form>
+
+	<div id="wrap">
+		<div class="fade_container">
+			<img class="active" src="/images/sign/apple.jpg" alt="image1" />
+			<img src="/images/sign/beach.jpg" alt="image2" />
+			<img src="/images/sign/forest.jpg" alt="img3" />
+			<img src="/images/sign/mandarinOrange.jpg" alt="img4" />
+			<img src="/images/sign/peach.jpg" alt="img5" />
+			<img src="/images/sign/strawberry.jpg" alt="">
+		</div>
+	</div>
+	
+	<div id="signBox">
+	
+		<div id="imgBox"></div>
+		<div id="infoBox">
+			<div id="header">
+				<h1>Sadagu</h1>
+				<ul id="sosicalIcon">
+					<li>
+						<a href="#">
+							<img src="/images/sign/google.png" alt="">
+							<span class="socialText google">Google+</span>
+						</a>
+						
+					</li>
+					
+					<li>
+						<a href="#">
+							<img src="/images/sign/kakaotalk.png" alt="">
+							<span class="socialText kakaoTalk">KakaoTalk</span>
+						</a>
+					</li>
+					
+					<li>
+						<a href="#">
+							<img src="/images/sign/facebook.png" alt="">
+							<span class="socialText facebook">Facebook</span>
+						</a>
+					
+					</li>
+				</ul>
+			</div>
+				<div id="border">
+					<form action="#">
+						<div>
+							<input class="form-controll" type="text" placeholder="User Name">
+						</div>
+						<div>
+							<input class="form-controll" type="text" placeholder="User Id">
+						</div>
+						<div>
+							<input class="form-controll" type="password" placeholder="User Password">
+						</div>
+						<div>
+							<input class="form-controll" type="text" placeholder="Email">
+						</div>
+						
+						<div class="put_custom_wrap">
+							<input type="checkbox" id="cxBox">
+							<label for="cxBox">I agree to the terms of service</label>
+							
+						</div>
+
+						<div class="button-container-1">
+						  <span class="mas">회원가입</span>
+						<button id='work' type="button" name="Hover">회원가입</button>
+					    </div>
+					</form>
+			</div>
+			<div id="footer">
+				이미 계정이 있으신가요?   <a href="/users/login">로그인</a>
+			</div>
+		</div>
+	</div>
+	
+
 </body>
 </html>

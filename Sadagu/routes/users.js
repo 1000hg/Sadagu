@@ -40,6 +40,10 @@ router.get('/realTimePrice/search', realTimePrice.search);
 
 router.post('/writer/read/buy/:id', write.buy);
 
+router.get('/edit', user.edit);
+
+router.post('/update', user.update);
+
 
 
 //router.post('/check', user.check);

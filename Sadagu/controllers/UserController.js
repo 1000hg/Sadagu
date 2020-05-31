@@ -180,6 +180,45 @@ userController.writer = function (req, res) {
 }
 
 
+userController.edit = function(req, res){
+		if (req.session.logined)
+			res.render('../views/Users/edit');
+		else
+			res.redirect("/users/login");
+}
+
+
+userController.update = function(req, res){
+	
+	var user = req.session.user_id;
+	
+	var name = req.body.name;
+	var password = req.body.password;
+	var email = req.body.eMail;
+	var address =req.body.address;
+	var phoneNum = req.body.phoneNum;
+	
+
+	User.findOneAndUpdate({ user: user.id }, { $set: { name:name, password:password, eMail:email, address:address, phoneNum:phoneNum } }, { new: true }, function(err, doc) {
+					if(err)
+						console.log(err);
+					else{
+						Write.find({}, function(err, write) {
+		if (!err) { 
+			res.render('../views/Users/main',{
+				write : write
+			})
+		}
+		else {
+			console.log(err);
+		}
+	});
+					}
+						
+				})
+}
+
+
 /*userController.check = function(req, res){
 	var id = req.body.id;
 	var password = req.body.password;
