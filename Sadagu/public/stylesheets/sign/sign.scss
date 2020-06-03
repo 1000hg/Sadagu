@@ -123,7 +123,7 @@ $col) {
 
 @font-face {
 	font-family: 'Amarillo';
-	src: url('amarillo/Amarillo.ttf') format('truetype');
+	src: url('/font/amarillo/Amarillo.ttf') format('truetype');
 
 }
 
@@ -274,11 +274,33 @@ input[type="password"] {
 
 
 
+#secondInfo{
+	display: none;
+}
+
+#prev {
+	visibility: hidden;
+	float: left;
+	margin-left: 20px;
+	font-family: "Lato";
+	color: #c0c0c0;
+	cursor: pointer;
+	
+}
+
+#next{
+	float: right;
+	margin-right: 20px;
+	font-family: "Lato";
+	color: #c0c0c0;
+	cursor: pointer;
+}
+
 
 
 .put_custom_wrap {
 	position: relative;
-	margin: 20px;
+	margin: 50px 20px;
 }
 
 .put_custom_wrap input[type=checkbox]::-ms-check {
@@ -344,4 +366,8 @@ input[type="password"] {
 	margin-left: 10px;
 	text-decoration: none;
 	color: green;
+}
+
+#footer a:hover{
+	color: black;
 }

@@ -3,6 +3,18 @@ var router = express.Router();
 var user = require('../controllers/UserController.js');
 var write = require('../controllers/WriteController.js');
 var realTimePrice = require('../controllers/RealTimePriceController.js');
+	
+ var multer = require("multer");
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname);
+    }
+  }),
+});
 
 
 
@@ -43,6 +55,10 @@ router.post('/writer/read/buy/:id', write.buy);
 router.get('/edit', user.edit);
 
 router.post('/update', user.update);
+
+router.get('/test', user.test);
+
+router.post('/test2', upload.single('img'), user.test2);
 
 
 

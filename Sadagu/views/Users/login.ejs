@@ -7,15 +7,117 @@
 </head>
 
 <body>
-	<a href="/users/create">signup</a>
+	<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<link rel="stylesheet" href="/stylesheets/login/login.css">
+
+	<script>
+		var now_img, next_img;
+
+		function fade_change() {
+			now_img = $(".fade_container img:eq(0)");
+			next_img = $(".fade_container img:eq(1)");
+			next_img.addClass("active").css("opacity", 0).animate({
+				"opacity": 1
+			}, 6000, function() {
+				$(".fade_container").append(now_img);
+				now_img.removeClass("active");
+			});
+		}
+
+		var timer = setInterval("fade_change()", 5000);
+	</script>
+
+</head>
+
+<body>
+
+	<div id="wrap">
+		<div class="fade_container">
+			<img class="active" src="/images/login/apple.jpg" alt="image1" />
+			<img src="/images/login/beach.jpg" alt="image2" />
+			<img src="/images/login/peach.jpg" alt="img3" />
+			<img src="/images/login/strawberry.jpg" alt="img4" />
+			<img src="/images/login/mandarinOrange.jpg" alt="img5" />
+			<img src="/images/login/forest.jpg" alt="">
+		</div>
+	</div>
 	
-	<a href="/users/find">find account</a>
+	<div id="signBox">
 	
-	<form action="/users/login" method="post">
-		<input type="text" name="id">
-		<input type="password" name="password">
-		<input type="submit">
-	</form>
+		<div id="imgBox"></div>
+		<div id="infoBox">
+			<div id="header">
+				<h1>Sadagu</h1>
+				<ul id="sosicalIcon">
+					<li>
+						<a href="#">
+							<img src="/images/login/google.png" alt="">
+							<span class="socialText google">Google+</span>
+						</a>
+						
+					</li>
+					
+					<li>
+						<a href="#">
+							<img src="/images/login/kakaotalk.png" alt="">
+							<span class="socialText kakaoTalk">KakaoTalk</span>
+						</a>
+					</li>
+					
+					<li>
+						<a href="#">
+							<img src="/images/login/facebook.png" alt="">
+							<span class="socialText facebook">Facebook</span>
+						</a>
+					
+					</li>
+				</ul>
+			</div>
+				<div id="border">
+					<form action="#" id="sendInfo">
+						<div>
+							<input class="form-controll" type="text" placeholder="User Id">
+						</div>
+						<div>
+							<input class="form-controll" type="password" placeholder="User Password">
+						</div>
+						
+						<div class="put_custom_wrap">
+							<input type="checkbox" id="cxBox">
+							<label for="cxBox">keep me logged in</label>
+							
+						</div>
+						
+						<div class="button-container-1">
+						  <span class="mas">Log in</span>
+						<button id='work' type="submit" name="Hover" form="sendInfo">Log in</button>
+					    </div>
+					    
+					</form>
+					
+					
+					
+			</div>
+			<div id="footer">
+				<div>Don't have an account?</div>
+				<div>
+				  	<a href="/users/create">Register</a>
+					<a href="/users/find" id="find">Forgot Password</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+</body>
+</html>
+
 </body>
 
 </html>

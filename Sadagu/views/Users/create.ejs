@@ -22,6 +22,24 @@
 		}
 
 		var timer = setInterval("fade_change()", 5000);
+		
+		
+		function next(){
+			$("#next").css("visibility","hidden");
+			$("#prev").css("visibility","visible");
+			
+			$("#firstInfo").css("display", "none");
+			$("#secondInfo").css("display", "inline");
+		}
+		
+		function prev(){
+			
+			$("#next").css("visibility","visible");
+			$("#prev").css("visibility","hidden");
+			
+			$("#firstInfo").css("display", "inline");
+			$("#secondInfo").css("display", "none");
+		}
 	</script>
 
 </head>
@@ -71,19 +89,38 @@
 				</ul>
 			</div>
 				<div id="border">
-					<form action="#">
-						<div>
-							<input class="form-controll" type="text" placeholder="User Name">
+					<form action="/users/save" method="post" id="sendInfo">
+						<div id="firstInfo">
+							<div>
+								<input class="form-controll" type="text" placeholder="User Name" name="name">
+							</div>
+							<div>
+								<input class="form-controll" type="text" placeholder="User Id" name="id">
+							</div>
+							<div>
+								<input class="form-controll" type="password" placeholder="User Password" name="password">
+							</div>
+							<div>
+								<input class="form-controll" type="text" placeholder="Email" name="eMail">
+							</div>
 						</div>
-						<div>
-							<input class="form-controll" type="text" placeholder="User Id">
+						
+						<div id="secondInfo">
+							<div>
+								<input class="form-controll" type="text" placeholder="User Birth" name="birth">
+							</div>
+							<div>
+								<input class="form-controll" type="text" placeholder="User PhoneNum" name="phoneNum">
+							</div>
+							<div>
+								<input class="form-controll" type="text" placeholder="User Account" name="account">
+							</div>
+							<div>
+								<input class="form-controll" type="text" placeholder="Address" name="address">
+							</div>
 						</div>
-						<div>
-							<input class="form-controll" type="password" placeholder="User Password">
-						</div>
-						<div>
-							<input class="form-controll" type="text" placeholder="Email">
-						</div>
+						<span id="prev" onclick="prev()">&#60; Prev</span>
+						<span id="next" onclick="next()">Next &#62; </span>
 						
 						<div class="put_custom_wrap">
 							<input type="checkbox" id="cxBox">
@@ -92,13 +129,13 @@
 						</div>
 
 						<div class="button-container-1">
-						  <span class="mas">회원가입</span>
-						<button id='work' type="button" name="Hover">회원가입</button>
+						  <span class="mas">Register</span>
+						  <button id='work' type="submit" name="Hover" type="">Register</button>
 					    </div>
 					</form>
 			</div>
 			<div id="footer">
-				이미 계정이 있으신가요?   <a href="/users/login">로그인</a>
+				Have you an account?   <a href="/users/login">Log in</a>
 			</div>
 		</div>
 	</div>

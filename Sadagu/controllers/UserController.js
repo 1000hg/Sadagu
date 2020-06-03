@@ -188,6 +188,19 @@ userController.edit = function(req, res){
 }
 
 
+userController.test = function(req, res){
+	res.render('../views/Users/test');
+
+}
+
+userController.test2 = function(req, res){
+     console.log(req.file);
+	console.log(req.file.filename);
+
+
+}
+
+
 userController.update = function(req, res){
 	
 	var user = req.session.user_id;

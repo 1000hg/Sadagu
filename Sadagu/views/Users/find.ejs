@@ -4,17 +4,93 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<link rel="stylesheet" href="/stylesheets/find/find.css">
+
+	<script>
+		var now_img, next_img;
+
+		function fade_change() {
+			now_img = $(".fade_container img:eq(0)");
+			next_img = $(".fade_container img:eq(1)");
+			next_img.addClass("active").css("opacity", 0).animate({
+				"opacity": 1
+			}, 6000, function() {
+				$(".fade_container").append(now_img);
+				now_img.removeClass("active");
+			});
+		}
+
+		var timer = setInterval("fade_change()", 5000);
+	</script>
+
 </head>
 
 <body>
-	<form action="/users/info" method="post">
-		<input type="text" placeholder="이름" name="name">
-		<input type="text" placeholder="생년월일" name="birth">
-		<input type="text" placeholder="전화번호" name="phoneNum">
-		<input type="text" placeholder="이메일" name="eMail">
-		
-		<input type="submit">
-	</form>
-</body>
 
+	<div id="wrap">
+		<div class="fade_container">
+			<img class="active" src="/images/find/apple.jpg" alt="image1" />
+			<img src="/images/find/beach.jpg" alt="image2" />
+			<img src="/images/find/peach.jpg" alt="img3" />
+			<img src="/images/find/strawberry.jpg" alt="img4" />
+			<img src="/images/find/mandarinOrange.jpg" alt="img5" />
+			<img src="/images/find/forest.jpg" alt="">
+		</div>
+	</div>
+	
+	<div id="signBox">
+	
+		<div id="imgBox"></div>
+		<div id="infoBox">
+			<div id="header">
+				<h1>Sadagu</h1>
+				<ul id="sosicalIcon">
+					<li>
+						<a href="#">
+							<img src="/images/find/google.png" alt="">
+							<span class="socialText google">Google+</span>
+						</a>
+						
+					</li>
+					
+					<li>
+						<a href="#">
+							<img src="/images/find/kakaotalk.png" alt="">
+							<span class="socialText kakaoTalk">KakaoTalk</span>
+						</a>
+					</li>
+					
+					<li>
+						<a href="#">
+							<img src="/images/find/facebook.png" alt="">
+							<span class="socialText facebook">Facebook</span>
+						</a>
+					
+					</li>
+				</ul>
+			</div>
+				<div id="border">
+					<form action="#" id="sendInfo">
+						<div>
+							<input class="form-controll" type="text" placeholder="User Email">
+						</div>
+					    
+						<div class="button-container-1">
+						  	<span class="mas">Send Me Email</span>
+							<button id='work' type="submit" name="Hover" form="sendInfo">Send Me Email</button>
+						</div>
+					</form>	
+					  
+					
+			</div>
+			<div id="footer">
+				<div>Don't have an account? <a href="/users/login">Register</a></div>
+			</div>
+		</div>
+	</div>
+	
+
+</body>
 </html>
+
