@@ -10,14 +10,14 @@ app.get("/nodemailerTest", function(req, res, next){
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'alxzkf123@gmail.com',  // gmail 계정 아이디를 입력
-      pass: 'pairy1@3tail'          // gmail 계정의 비밀번호를 입력
+      user: '',  // gmail 계정 아이디를 입력
+      pass: ''          // gmail 계정의 비밀번호를 입력
     }
   });
 
   let mailOptions = {
-    from: 'alxzkf123@gmail.com',    // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
-    to: 'alxzkf@dgsw.hs.kr' ,                     // 수신 메일 주소
+    from: '',    // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
+    to: '' ,                     // 수신 메일 주소
     subject: 'Sending Email using Node.js',   // 제목
     text: 'That was easy!'  // 내용
   };
