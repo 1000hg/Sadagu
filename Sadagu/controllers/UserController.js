@@ -2,6 +2,8 @@ var User = require("../models/User");
 var Write = require("../models/Write");
 var express = require('express');
 var router = express.Router();
+var fs = require('fs')
+var ejs = require('ejs')
 
 
 
@@ -24,6 +26,7 @@ userController.postLogin = function (req, res) {
 	var id = req.body.id;
 	var password = req.body.password;
 
+	console.log(password);
 
 	User.findOne({
 		id: id,
@@ -41,7 +44,7 @@ userController.postLogin = function (req, res) {
 				/*res.render('../views/Users/main', {
 					session: req.session
 				})*/
-				
+
 				res.redirect('/users/main');
 
 			})
@@ -51,18 +54,61 @@ userController.postLogin = function (req, res) {
 }
 
 
-userController.main = function(req, res) {
+userController.main = function (req, res) {
+
+	Write.find({}, function (err, write) {
+		if (!err) {
+			res.render('../views/Users/main', {
+				write: write
+			})
 	
-	Write.find({}, function(err, write) {
-		if (!err) { 
-			res.render('../views/Users/main',{
-				write : write
+	/*var path = "C:\\Users\\user\\Desktop\\Git\\git\\Sadagu\\Sadagu\\views\\Users\\main.ejs"
+
+
+	fs.readFile(path, 'utf-8', function (err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			Write.find({}, function (err, write) {
+				if (!err) {
+					res.send(ejs.render(data, {
+						write: write
+					}));
+				}
+				
+				else{
+					console.log(err);
+				}
 			})
 		}
-		else {
+
+	})*/
+
+
+
+	} else {
 			console.log(err);
 		}
 	});
+}
+
+
+userController.img = function(req, res){
+	
+	Write.findOne({
+		_id: req.params.id
+	}, function (err, write) {
+		if (err) console.log("505Error");
+
+		else if (!write) return res.status(404).json({
+			error: 'write not found'
+		});
+		else {
+			res.contentType(write.img.contentType);
+			res.send(write.img.data);
+		}
+
+	})
 }
 
 
@@ -89,9 +135,9 @@ userController.save = function (req, res) {
 				e = "User already exists";
 				console.log(e);
 			}
-			
+
 			console.log(err);
-			
+
 			console.log("Failed save");
 			res.redirect("/users/create");
 		} else {
@@ -106,29 +152,29 @@ userController.find = function (req, res) {
 	res.render("../views/Users/find");
 }
 
-userController.info = function(req, res){
-	
+userController.info = function (req, res) {
+
 	var name = req.body.name;
 	var birth = req.body.birth;
 	var phoneNum = req.body.phoneNum;
 	var eMail = req.body.eMail;
-	
+
 	User.findOne({
 		name: name,
 		birth: birth,
 		phoneNum: phoneNum,
 		eMail: eMail
-	}, function(err, user){
-		
-		if(err) console.log("505Error");
-		
-		
+	}, function (err, user) {
+
+		if (err) console.log("505Error");
+
+
 		else if (!user) return res.status(404).json({
 			error: 'user not found'
 		});
-		
-		else{
-			res.render('../views/Users/info',{
+
+		else {
+			res.render('../views/Users/info', {
 				user: user
 			});
 		}
@@ -140,7 +186,7 @@ userController.info = function(req, res){
 
 
 userController.mypage = function (req, res) {
-	
+
 	var user = req.session.user_id;
 
 	User.findOne({
@@ -153,16 +199,18 @@ userController.mypage = function (req, res) {
 			error: 'user not found'
 		});
 		else {
-			
-			Write.find({writer:user.id}, function(err, write) {
-			if (req.session.logined)
-				res.render('../views/Users/mypage', {
-					user: user, 
-					write:write
-				});
-			else
-				res.redirect("/users/login");
-	});
+
+			Write.find({
+				writer: user.id
+			}, function (err, write) {
+				if (req.session.logined)
+					res.render('../views/Users/mypage', {
+						user: user,
+						write: write
+					});
+				else
+					res.redirect("/users/login");
+			});
 		}
 
 	})
@@ -180,55 +228,53 @@ userController.writer = function (req, res) {
 }
 
 
-userController.edit = function(req, res){
-		if (req.session.logined)
-			res.render('../views/Users/edit');
-		else
-			res.redirect("/users/login");
+userController.edit = function (req, res) {
+	if (req.session.logined)
+		res.render('../views/Users/edit');
+	else
+		res.redirect("/users/login");
 }
 
 
-userController.test = function(req, res){
-	res.render('../views/Users/test');
+userController.update = function (req, res) {
 
-}
-
-userController.test2 = function(req, res){
-     console.log(req.file);
-	console.log(req.file.filename);
-
-
-}
-
-
-userController.update = function(req, res){
-	
 	var user = req.session.user_id;
-	
+
 	var name = req.body.name;
 	var password = req.body.password;
 	var email = req.body.eMail;
-	var address =req.body.address;
+	var address = req.body.address;
 	var phoneNum = req.body.phoneNum;
-	
 
-	User.findOneAndUpdate({ user: user.id }, { $set: { name:name, password:password, eMail:email, address:address, phoneNum:phoneNum } }, { new: true }, function(err, doc) {
-					if(err)
-						console.log(err);
-					else{
-						Write.find({}, function(err, write) {
-		if (!err) { 
-			res.render('../views/Users/main',{
-				write : write
-			})
+
+	User.findOneAndUpdate({
+		user: user.id
+	}, {
+		$set: {
+			name: name,
+			password: password,
+			eMail: email,
+			address: address,
+			phoneNum: phoneNum
 		}
-		else {
+	}, {
+		new: true
+	}, function (err, doc) {
+		if (err)
 			console.log(err);
+		else {
+			Write.find({}, function (err, write) {
+				if (!err) {
+					res.render('../views/Users/main', {
+						write: write
+					})
+				} else {
+					console.log(err);
+				}
+			});
 		}
-	});
-					}
-						
-				})
+
+	})
 }
 
 

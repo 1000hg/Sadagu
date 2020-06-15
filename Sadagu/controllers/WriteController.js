@@ -2,6 +2,7 @@ var Write = require("../models/Write");
 var Usr = require("../models/User");
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 
 var writeController = {};
 
@@ -11,12 +12,19 @@ var writeController = {};
 writeController.submit = function(req, res){
 	var today = new Date()
 	var user = req.session.user_id;
+	
+	//req.body.img.contentType = 'image/png';
 	req.body.writer = user;
 	req.body.url = "aa";
 	req.body.maxPrice = 0;
+	req.body.buyCount = 0;
+	req.body.watcher = 0;
 	req.body.minTime = today.toLocaleString();
 	//console.log(req.body);
 	var writer = new Write(req.body);
+	
+	writer.img.data = fs.readFileSync(req.file.path);
+	writer.img.contentType = 'image/png';
 	//console.log(writer);
 
 	
@@ -93,6 +101,7 @@ writeController.read = function(req, res){
 
 
 writeController.search = function(req, res){
+	
 	
 	var name = new RegExp(req.body.name);
 	

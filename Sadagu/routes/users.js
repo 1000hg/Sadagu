@@ -38,7 +38,7 @@ router.get('/mypage', user.mypage);
 
 router.get('/writer', user.writer);
 
-router.post('/writer/submit', write.submit);
+router.post('/writer/submit', upload.single('img'), write.submit);
 
 router.post('/writer/delete/:id', write.delete);
 
@@ -56,9 +56,8 @@ router.get('/edit', user.edit);
 
 router.post('/update', user.update);
 
-router.get('/test', user.test);
+router.get('/img/:id', user.img);
 
-router.post('/test2', upload.single('img'), user.test2);
 
 
 

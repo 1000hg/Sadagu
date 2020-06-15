@@ -23,6 +23,7 @@ mongoose.connection.on('open', function () {
 
     var a = new A;
     a.img.data = fs.readFileSync(imgPath);
+	  console.log(a.img.data);
     a.img.contentType = 'image/png';
     a.save(function (err, a) {
       if (err) throw err;

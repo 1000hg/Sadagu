@@ -7,8 +7,10 @@
 </head>
 
 <body>
-	<form action="/users/writer/submit" method="post">
+	<form action="/users/writer/submit" enctype="multipart/form-data" method="post">
 
+		<input type="file" name="img" />
+		
 		<input type="text" name="minPrice" placeholder="minPrice">
 		<input type="text" name="unit" placeholder="unit">
 		<input type="text" name="maxTime" placeholder="maxTime">
@@ -21,7 +23,9 @@
 		<input type="text" name="bingingWay" placeholder="bingingWay">
 
 		<input type="submit">
+		
 	</form>
+	
 </body>
 
 </html>

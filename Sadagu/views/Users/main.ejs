@@ -1,58 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<link rel="stylesheet" href="/stylesheets/main/main.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script>
+		$('.content').fadeIn(11500).delay(3500).fadeOut(11500);
+	</script>
 </head>
+
 <body>
-	<h1>메인 화면</h1>
-	
-	<form action="/users/logout" method="post">
-		<button>Logout</button>
-	</form>
-	
-	<form action="/users/mypage">
-		<button>mypage</button>
-	</form>
-	
-	<form action="/users/writer">
-		<button>writer</button>
-	</form>
-	
-	<form action="/users/writer/search" method="post">
-		<input type="text" name="name">
-		<input type="submit">
-	</form>
-	
-	<form action="/users/realTimePrice">
-		<button>RealTimePrice</button>
-	</form>
-	
-	
-	
-	
-	<div>
-		<% if(write.length > 0) { %>
-
-			<% for( var i = 0; i < write.length; i++) { %>
-			
-
-			<div onclick="location.href ='/users/writer/read/<%= write[i]._id %>'">
-				<p><%= write[i].name %> </p>
-				<p><%= write[i].unit %> </p>
-				<p><%= write[i].maxTime %> </p>
-				<p><%= write[i].minTime %> </p>
-				<p><%= write[i].count %> </p>
+	<div id="headPage">
+		<div id="top">
+			<div>
+				<span class="number">+ 82 010 1234 5678</span>
+				<span class="email">info@gmail.com</span>
 			</div>
-			<hr>
+			<span class="space"></span>
+			<div id="headRight">
+				<span>Hello! 1000hg</span>
+				<form action="/users/mypage">
+					<input type="submit" class="a" value="My Page">
+				</form>
+				
+				<form action="/users/logout" method="post">
+					<input type="submit" class="a" value="Logout">
+				</form>
+				<!--<a href="#" class="a">My Page</a>
+				<a href="#" class="a">Logout</a>-->
+			</div>
+		</div>
+		<div id="middle">
+			<h1>Sadagu</h1>
+			<div class="searchContainer">
+				<form action="/users/writer/search" class="field-container" method="post">
+					<input type="text" placeholder="Search..." class="field" name="name"/>
+					<div class="icons-container">
+						<div class="icon-search"></div>
+						<div class="icon-close">
+							<div class="x-up"></div>
+							<div class="x-down"></div>
+						</div>
+					</div>
+				</form>
+				<img src="/images/main/a.jpg" alt="" class="img1">
+				<form action="/users/writer" id="moveWrite">
+					<input type="submit" value="Write">
+				</form>
+				<!--<span>Write</span>-->
+			</div>
+		</div>
+		<div id="foot">
+			<ul>
+				<li>Home</li>
+				<li>About</li>
+				<li>Pages</li>
+				<li>Shop</li>
+				<li>Blog</li>
+				<li>Contact</li>
+			</ul>
 
+		</div>
+	</div>
 
+	<div id="borderPage"></div>
+
+	<div id="mainPage">
+		<span class="mainTitle">Popular Products</span>
+		<div class="productsContainer">
+		
+			<% for(var i = 0; i < 4; i++) { %>
+			<div class="product" onclick="location.href='/users/writer/read/<%= write[i]._id %>' ">
+				<img src="/users/img/<%= write[i]._id %>" alt="">
+				<div class="productTitle"><%= write[i].name %></div>
+				<div><%= write[i].price %></div>
+				<div class="productMiddle">
+					<span>입찰 <%= write[i].buyCount %></span>
+					<span>조회 <%= write[i].watcher %></span>
+				</div>
+				<div>판매자 : <%= write[i].writer %></div>
+				<div>● <%= write[i].maxTime %></div>
+
+			</div>
+			
 			<% } %>
 
-		<% } else {%>
-		<div>Not Exist</div>
-		<% } %>
+		</div>
+
+
+
 	</div>
-	
-</body>
-</html>
+
+
+	<div id="innerPage">
+		<img src="/images/main/moon.jpg" alt="">
+		<div class="whiteLable">
+			<div class="whiteTop">
+				<div>COLLECTION</div>
+				<h2>Legende Bordeaux New</h2>
+			</div>
+			<div class="whiteMiddle">
+				<span>We are dedicated to building a solid foundation of trust with our customers and to the constant modernisation and improvement of all our processes. This enables us to focus on being a sustainable</span>
+			</div>
+			<div class="whiteFoot">
+				<a href="#" class="button2 b-orange rot-135">VIEW COLLECTION</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="recommendPage">
+		<span class="mainTitle">Recommend Products</span>
+		<div class="productsContainer">
+			<% for(var i = 0; i < 4; i++) { %>
+				<div class="product" onclick="location.href='/users/writer/read/<%= write[i]._id %>'">
+					<img src="/users/img/<%= write[i]._id %>" alt="">
+					<div class="productTitle"><%= write[i].name %></div>
+					<div><%= write[i].price %></div>
+					<div class="productMiddle">
+						<span>입찰 <%= write[i].buyCount %></span>
+						<span>조회 <%= write[i].watcher %></span>
+					</div>
+					<div>판매자 : <%= write[i].writer %></div>
+					<div>● <%= write[i].maxTime %></div>
+
+				</div>
+			<% } %>
+		</div>
+	</div>
+
+	<div id="navPage">
+		<div class="question">
+			<h2>FOLLOW OUR UPDATES!</h2>
+			<div class="questionBorder">
+				<div class="description">
+					If you want to get an email from us every time we have a new special offer, then sign up here!</div>
+				<div class="email">
+					<input type="text" placeholder="Enter your Email">
+					<button class="b-orange rot-135">Subscribe</button>
+				</div>
+			</div>
+
+		</div>
+		<div class="support">
+			<div class="supportContainer">
+				<div class="supportTitle">FREE DELIVERY</div>
+				<div class="supportContent">WORLDWIDE</div>
+			</div>
+			<div class="supportContainer">
+				<div class="supportTitle">24/ 7 SUPPORT</div>
+				<div class="supportContent">CUSTOMER SUPPORT</div>
+			</div>
+			<div class="supportContainer">
+				<div class="supportTitle">PAYMENT</div>
+				<div class="supportContent">SECURE SYSTEM</div>
+			</div>
+			<div>
+				<div class="supportTitle">TRUSTED</div>
+				<div class="supportContent">ENUINE PRODUCTS</div>
+			</div>
+			
+		</div>
+		<div class="about">
+			<div id="aboutFirst" class="aboutContainer">
+				<div class="aboutTitle">About US</div>
+				<div class="aboutContent">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</div>
+			</div>
+			<div id="aboutSecond" class="aboutContainer">
+				<div class="aboutTitle">CATEGORIES</div>
+				<div class="aboutContent">
+					<p>Fashion Sneakers</p>
+					<p>Jackets</p>
+					<p>Outdoor Shop</p>
+					<p>Pants</p>
+					<p>Shirts & Tops</p>
+					<p>Swim Shop</p>
+					<p>Swimwear</p>
+				</div>
+			</div>
+			
+			<div id="aboutThird" class="aboutContainer">
+				<div class="aboutTitle">MY ACCOUNT</div>
+				<div class="aboutContent">
+					<p>Orders</p>
+					<p>Jackets</p>
+					<p>Compare</p>
+					<p>Wishlist</p>
+					<p>Log In</p>
+					<p>Register</p>
+				</div>
+			</div>
+
+
+			<div id="aboutFourth" class="aboutContainer">
+				<div class="aboutTitle">CONTACT INFO</div>
+				<div class="aboutContent" id="aboutFourthConainer">
+					<div>
+						<img src="/images/main/position.png" alt="">
+						<p id="firstP">c/o Giunti International Division Via G.B. Pirelli, 30 20124 Milan</p>
+					</div>
+
+
+					<div>
+						<img src="/images/main/phone.png" alt="">
+						<p>+025 2155 3255</p>
+					</div>
+
+
+					<div>
+						<img src="/images/main/mail.png" alt="">
+						<p>info@gmail.com</p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footPage">
+		<span>Copyright © 2020. All Rights Reserved.</span>
+	</div>
+</body></html>

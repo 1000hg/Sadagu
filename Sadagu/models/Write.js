@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 var WriteSchema = new mongoose.Schema({
+	img: { data: Buffer, contentType: String },
 	url : {type: String},
 	minPrice : {type: String, required: true},
 	maxPrice : {type: Number, required: true},
@@ -15,7 +16,9 @@ var WriteSchema = new mongoose.Schema({
 	deliverPrice : {type: String},
 	bindingWay : {type: String},
 	writer : {type: String, required: true},
-	buyer : {type: String}
+	buyer : {type: String},
+	watcher : {type: Number},
+	buyCount : {type:Number}
 	
 });
 
@@ -24,7 +27,7 @@ module.exports = mongoose.model('Write', WriteSchema);
 
 
 
-//url 이미지 또는 동영상 여러 장 가능 최대 3장
+//url 이미지 여러 장 가능 최대 3장
 
 
 //minPrice 최소 가격(입찰 전 가격)
