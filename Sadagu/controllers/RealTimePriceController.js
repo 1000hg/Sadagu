@@ -17,6 +17,7 @@ RealTimePriceController.move = function(req, res){
 
 RealTimePriceController.search = function(req, res){
 	var word = req.query.name;
+	console.log(word);
 	
  	var goodsArray = new Array();
     var goodsInfo = new Object();
@@ -42,6 +43,7 @@ RealTimePriceController.search = function(req, res){
 			goodsInfo = new Object();
 
 		});
+		console.log(goodsArray);
 
 		res.render("../views/Users/goodsSearch.ejs", {goods:goodsArray});
 

@@ -82,6 +82,9 @@
 				<div class="goodsTop">
 					<div>현재가 <%= write.maxPrice %>원</div>
 					<div>남은 시간 1일 6시간 16분 16초</div>
+					<form action="/users/sellerInfo/<%= write.writer %>/1">
+						<button type="submit">작성자 정보</button>
+					</form>
 				</div>
 				<table>
 					<tbody>
@@ -103,7 +106,7 @@
 						</tr>
 						<tr>
 							<td>현재 입찰자</td>
-							<td>1000hg</td>
+							<td><%= write.buyer %></td>
 						</tr>
 						<tr>
 							<td>조회수</td>
@@ -140,7 +143,8 @@
 			</div>
 		</div>
 		<div class="goodsFoot">
-			<form action="#">
+			<form action="/users/writer/read/buy/<%= write._id %>" method="post">
+				<input type="text" name="money">
 				<div class="buttons">
 					<button class="pulse">입찰</button>
 				</div>

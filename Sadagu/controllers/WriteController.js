@@ -15,11 +15,12 @@ writeController.submit = function(req, res){
 	
 	//req.body.img.contentType = 'image/png';
 	req.body.writer = user;
-	req.body.url = "aa";
-	req.body.maxPrice = 0;
+	req.body.maxPrice = req.body.minPrice;
 	req.body.buyCount = 0;
 	req.body.watcher = 0;
+	req.body.buyer = " ";
 	req.body.minTime = today.toLocaleString();
+	req.body.buyer = "없음";
 	//console.log(req.body);
 	var writer = new Write(req.body);
 	
@@ -102,23 +103,35 @@ writeController.read = function(req, res){
 
 writeController.search = function(req, res){
 	
+	var page = req.params.page;
+	var writeInfo = {page_num : 4};
+	writeInfo.page = Number(page);
+	writeInfo.name = req.body.name;
 	
 	var name = new RegExp(req.body.name);
 	
-	Write.find({name: name}, function(err, write) {
-		if (!err) {
-			res.render('../views/Users/writerSearch', {write:write});
-		}
-		else {
-			console.log(err);
-		}
+	
+	Write.count({name:name}, function(err, result){
+		Write.find({name: name}, function(err, write) {
+			if (!err) {
+				writeInfo.length = result;
+				console.log(write);
+				res.render('../views/Users/writerSearch', {write:write, writeInfo:writeInfo});
+			}
+			else {
+				console.log(err);
+			}
+		});
 	});
+	
 }
 
 
 
 writeController.buy = function(req, res){
 	
+	
+	console.log("here");
 	var writeId = req.params.id;
 	var money = req.body.money;
 	
@@ -130,7 +143,7 @@ writeController.buy = function(req, res){
 			}
 			else{
 				var addUnit = write.maxPrice + Number(money);
-				Write.findOneAndUpdate({ _id: write._id }, { $set: { maxPrice: addUnit } }, { new: true }, function(err, doc) {
+				Write.findOneAndUpdate({ _id: write._id }, { $set: { maxPrice: addUnit, buyer: req.session.user_id } }, { new: true }, function(err, doc) {
 					if(err)
 						console.log(err);
 					else
@@ -139,7 +152,40 @@ writeController.buy = function(req, res){
 			}
 	
 }
-	})}
+	})
+}
+
+
+
+writeController.buyList = function(req, res){
+	
+	var id = req.session.user_id;
+
+	var page = req.params.page;
+	var writeInfo = {
+		page_num: 2
+	};
+	writeInfo.page = Number(page);
+
+
+	Write.find({buyer: id}, function (err, write) {
+		Write.count({}, function (err, result) {
+			if (req.session.logined){
+				writeInfo.length = result;
+				console.log(write[0]);
+				res.render('../views/Users/buyList', {
+					writeInfo: writeInfo,
+					write: write
+				});
+			}
+			else
+				res.redirect("/users/login");
+			});
+	});
+
+	
+	
+}
 
 
 

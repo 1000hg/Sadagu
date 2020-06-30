@@ -5,6 +5,9 @@ var router = express.Router();
 var fs = require('fs')
 var ejs = require('ejs')
 
+const nodemailer = require('nodemailer');
+const app = express();
+
 
 
 var userController = {};
@@ -61,40 +64,40 @@ userController.main = function (req, res) {
 			res.render('../views/Users/main', {
 				write: write
 			})
-	
-	/*var path = "C:\\Users\\user\\Desktop\\Git\\git\\Sadagu\\Sadagu\\views\\Users\\main.ejs"
+
+			/*var path = "C:\\Users\\user\\Desktop\\Git\\git\\Sadagu\\Sadagu\\views\\Users\\main.ejs"
 
 
-	fs.readFile(path, 'utf-8', function (err, data) {
-		if (err) {
-			console.log(err);
-		} else {
-			Write.find({}, function (err, write) {
-				if (!err) {
-					res.send(ejs.render(data, {
-						write: write
-					}));
-				}
-				
-				else{
+			fs.readFile(path, 'utf-8', function (err, data) {
+				if (err) {
 					console.log(err);
+				} else {
+					Write.find({}, function (err, write) {
+						if (!err) {
+							res.send(ejs.render(data, {
+								write: write
+							}));
+						}
+						
+						else{
+							console.log(err);
+						}
+					})
 				}
-			})
-		}
 
-	})*/
+			})*/
 
 
 
-	} else {
+		} else {
 			console.log(err);
 		}
 	});
 }
 
 
-userController.img = function(req, res){
-	
+userController.img = function (req, res) {
+
 	Write.findOne({
 		_id: req.params.id
 	}, function (err, write) {
@@ -154,32 +157,98 @@ userController.find = function (req, res) {
 
 userController.info = function (req, res) {
 
-	var name = req.body.name;
-	var birth = req.body.birth;
-	var phoneNum = req.body.phoneNum;
+	
 	var eMail = req.body.eMail;
-
+	
+	
+	console.log(eMail);
+	let transporter = nodemailer.createTransport({
+		service: 'gmail',
+		auth: {
+			user: '', // gmail 계정 아이디를 입력
+			pass: '' // gmail 계정의 비밀번호를 입력
+		}
+	});
+	
 	User.findOne({
-		name: name,
-		birth: birth,
-		phoneNum: phoneNum,
-		eMail: eMail
+		eMail : eMail
 	}, function (err, user) {
-
+		
 		if (err) console.log("505Error");
-
 
 		else if (!user) return res.status(404).json({
 			error: 'user not found'
 		});
-
 		else {
-			res.render('../views/Users/info', {
-				user: user
+			let mailOptions = {
+				from: '', // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
+				to: eMail, // 수신 메일 주소
+				subject: '[Sadagu] Find Your account', // 제목
+				text: 'id : ' + user.id + '\n\ password : ' + user.password// 내용
+			};
+			
+			transporter.sendMail(mailOptions, function (error, info) {
+				if (error) {
+					console.log(error);
+				} else {
+					console.log('Email sent: ' + info.response);
+					res.redirect("/users/login");
+				}
 			});
 		}
 	})
+
+
+
 }
+
+
+userController.sellerInfo = function(req, res){
+	
+	var id = req.params.id;
+	
+	var page = req.params.page;
+	
+	var writeInfo = {
+		page_num: 4
+	};
+	writeInfo.page = Number(page);
+	
+	if (req.session.logined){
+			User.findOne({
+			id:id
+		}, function (err, user) {
+			if (err) console.log("505Error");
+
+			else if (!user) return res.status(404).json({
+				error: 'user not found'
+			});
+			else {
+				Write.find({writer: user.id}, function (err, write) {
+					Write.count({}, function (err, result) {
+					if (req.session.logined){
+						writeInfo.name = write.name;
+						writeInfo.length = result;
+						console.log(writeInfo);
+						res.render('../views/Users/info', {
+							user: user,
+							write: write,
+							writeInfo: writeInfo
+						});
+					}
+					else
+						res.redirect("/users/login");
+				});
+			});
+		}
+			})	
+	}
+	else {
+		res.render('../views/Users/login')
+	}	
+	
+}
+
 
 
 
@@ -188,6 +257,12 @@ userController.info = function (req, res) {
 userController.mypage = function (req, res) {
 
 	var user = req.session.user_id;
+
+	var page = req.params.page;
+	var writeInfo = {
+		page_num: 4
+	};
+	writeInfo.page = Number(page);
 
 	User.findOne({
 		user: user.id
@@ -199,17 +274,20 @@ userController.mypage = function (req, res) {
 			error: 'user not found'
 		});
 		else {
-
-			Write.find({
-				writer: user.id
-			}, function (err, write) {
-				if (req.session.logined)
-					res.render('../views/Users/mypage', {
-						user: user,
-						write: write
-					});
-				else
-					res.redirect("/users/login");
+				Write.find({writer: user.id}, function (err, write) {
+					Write.count({}, function (err, result) {
+					if (req.session.logined){
+						writeInfo.name = write.name;
+						writeInfo.length = result;
+						res.render('../views/Users/mypage', {
+							user: user,
+							write: write,
+							writeInfo: writeInfo
+						});
+					}
+					else
+						res.redirect("/users/login");
+				});
 			});
 		}
 
@@ -292,8 +370,6 @@ userController.update = function (req, res) {
 		}
 	})
 }*/
-
-
 
 
 

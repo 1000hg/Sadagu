@@ -21,7 +21,7 @@
 			<span class="space"></span>
 			<div id="headRight">
 				<span>Hello! 1000hg</span>
-				<form action="/users/mypage">
+				<form action="/users/mypage/1">
 					<input type="submit" class="a" value="My Page">
 				</form>
 				
@@ -35,7 +35,7 @@
 		<div id="middle">
 			<h1>Sadagu</h1>
 			<div class="searchContainer">
-				<form action="/users/writer/search" class="field-container" method="post">
+				<form action="/users/writer/search/1" class="field-container" method="post">
 					<input type="text" placeholder="Search..." class="field" name="name"/>
 					<div class="icons-container">
 						<div class="icon-search"></div>
@@ -68,7 +68,10 @@
 	<div id="borderPage"></div>
 
 	<div id="mainPage">
-		<span class="mainTitle">Popular Products</span>
+			<span class="mainTitle">Popular Products</span>
+			<div>
+				<a  href="#" class="showAll">Show more Products</a>
+			</div>
 		<div class="productsContainer">
 		
 			<% for(var i = 0; i < 4; i++) { %>
@@ -112,6 +115,9 @@
 
 	<div id="recommendPage">
 		<span class="mainTitle">Recommend Products</span>
+		<div>
+			<a  href="#" class="showAll">Show more Products</a>
+		</div>
 		<div class="productsContainer">
 			<% for(var i = 0; i < 4; i++) { %>
 				<div class="product" onclick="location.href='/users/writer/read/<%= write[i]._id %>'">

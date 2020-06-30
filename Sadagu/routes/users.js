@@ -3,6 +3,7 @@ var router = express.Router();
 var user = require('../controllers/UserController.js');
 var write = require('../controllers/WriteController.js');
 var realTimePrice = require('../controllers/RealTimePriceController.js');
+var follow = require('../controllers/FollowController.js');
 	
  var multer = require("multer");
 const upload = multer({
@@ -34,7 +35,7 @@ router.get('/find', user.find);
 
 router.post('/info', user.info);
 
-router.get('/mypage', user.mypage);
+router.get('/mypage/:page', user.mypage);
 
 router.get('/writer', user.writer);
 
@@ -44,7 +45,9 @@ router.post('/writer/delete/:id', write.delete);
 
 router.get('/writer/read/:id', write.read);
 
-router.post('/writer/search', write.search);
+router.post('/writer/search/:page', write.search);
+
+router.post('/writer/search/:name/:page', write.search);
 
 router.get('/realTimePrice', realTimePrice.move);
 
@@ -58,6 +61,15 @@ router.post('/update', user.update);
 
 router.get('/img/:id', user.img);
 
+router.get('/sellerInfo/:id/:page', user.sellerInfo);
+
+router.post('/follow/:writeId', follow.follow);
+
+router.get('/follow/find', follow.find);
+
+router.post('/follow/unFollow/:follow/:follower', follow.unFollow);
+
+router.get('/writer/buyList/:page', write.buyList);
 
 
 

@@ -1,33 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<link rel="stylesheet" href="/stylesheets/search/search.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script>
+	
+	
+	 function goPage(name, page) {
+      var f = document.paging;
+
+	  f.name.value = name;
+	  
+
+      f.action = "/users/writer/search/" + page;
+      f.method = "post";
+      f.submit();
+    }
+	
+	
+	
+	</script>
 </head>
+
 <body>
-	
-	<div>
-		<% if(write.length > 0) { %>
-
-			<% for( var i = 0; i < write.length; i++) { %>
-			
-
-			<div onclick="location.href ='/users/writer/read/<%= write[i]._id %>'">
-				<p><%= write[i].name %> </p>
-				<p><%= write[i].unit %> </p>
-				<p><%= write[i].maxTime %> </p>
-				<p><%= write[i].minTime %> </p>
-				<p><%= write[i].count %> </p>
+	<div id="headPage">
+		<div id="top">
+			<div>
+				<span class="number">+ 82 010 1234 5678</span>
+				<span class="email">info@gmail.com</span>
 			</div>
-			<hr>
+			<span class="space"></span>
+			<div>
+				<span>Hello! 1000hg</span>
+				<a href="#" class="a">My Page</a>
+				<a href="#" class="a">Logout</a>
+			</div>
+		</div>
+		<div id="middle">
+			<h1>Sadagu</h1>
+			<div class="searchContainer">
+				<form action="" class="field-container">
+					<input type="text" placeholder="Search..." class="field" />
+					<div class="icons-container">
+						<div class="icon-search"></div>
+						<div class="icon-close">
+							<div class="x-up"></div>
+							<div class="x-down"></div>
+						</div>
+					</div>
+				</form>
+				<img src="a.jpg" alt="" class="img1">
+				<span>Write</span>
+			</div>
+		</div>
+		<div id="foot">
+			<ul>
+				<li>Home</li>
+				<li>About</li>
+				<li>Pages</li>
+				<li>Shop</li>
+				<li>Blog</li>
+				<li>Contact</li>
+			</ul>
 
-
-			<% } %>
-
-		<% } else {%>
-		<div>Not Exist</div>
-		<% } %>
+		</div>
 	</div>
-	
+
+	<div id="borderPage"></div>
+
+	<div id="mainPage">
+		<span class="mainTitle">Search Products</span>
+		<div>
+			<a href="#" class="showAll">Show more Products</a>
+		</div>
+		
+		<div class="productsContainer">
+		<% for(var i = (writeInfo.page * writeInfo.page_num) - writeInfo.page_num; i < (writeInfo.page * writeInfo.page_num); i++) { %>
+			<% if(i < writeInfo.length) { %>
+				<div class="product" onclick="location.href='/users/writer/read/<%= write[i]._id %>' ">
+					<img src="/users/img/<%= write[i]._id %>" alt="">
+					<div class="productTitle"><%= write[i].name %></div>
+					<div><%= write[i].price %></div>
+					<div class="productMiddle">
+						<span>입찰 <%= write[i].buyCount %></span>
+						<span>조회 <%= write[i].watcher %></span>
+					</div>
+					<div>판매자 : <%= write[i].writer %></div>
+					<div>● <%= write[i].maxTime %></div>
+				</div>
+			<% } %>
+			
+		<% } %>
+		</div>
+
+
+
+		<div>
+			<form name="paging">
+				<input type="hidden" name="name">
+			</form>
+		
+			<%
+            for(var j = 0; j < writeInfo.length / writeInfo.page_num; j++){
+            %>
+			[<a href="javascript:goPage('<%= writeInfo.name %>', <%=j + 1%>);"><%= j + 1 %></a>]
+			<%
+            }
+            %>
+
+
+		</div>
+
+
+	</div>
+
+
+
+
+
+	<div class="about">
+		<div id="aboutFirst" class="aboutContainer">
+			<div class="aboutTitle">About US</div>
+			<div class="aboutContent">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</div>
+		</div>
+		<div id="aboutSecond" class="aboutContainer">
+			<div class="aboutTitle">CATEGORIES</div>
+			<div class="aboutContent">
+				<p>Fashion Sneakers</p>
+				<p>Jackets</p>
+				<p>Outdoor Shop</p>
+				<p>Pants</p>
+				<p>Shirts & Tops</p>
+				<p>Swim Shop</p>
+				<p>Swimwear</p>
+			</div>
+		</div>
+
+		<div id="aboutThird" class="aboutContainer">
+			<div class="aboutTitle">MY ACCOUNT</div>
+			<div class="aboutContent">
+				<p>Orders</p>
+				<p>Jackets</p>
+				<p>Compare</p>
+				<p>Wishlist</p>
+				<p>Log In</p>
+				<p>Register</p>
+			</div>
+		</div>
+
+
+		<div id="aboutFourth" class="aboutContainer">
+			<div class="aboutTitle">CONTACT INFO</div>
+			<div class="aboutContent" id="aboutFourthConainer">
+				<div>
+					<img src="/images/main/position.png" alt="">
+					<p id="firstP">c/o Giunti International Division Via G.B. Pirelli, 30 20124 Milan</p>
+				</div>
+
+
+				<div>
+					<img src="/images/main/phone.png" alt="">
+					<p>+025 2155 3255</p>
+				</div>
+
+
+				<div>
+					<img src="/images/main/mail.png" alt="">
+					<p>info@gmail.com</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div id="footPage">
+		<span>Copyright © 2020. All Rights Reserved.</span>
+	</div>
 </body>
+
 </html>

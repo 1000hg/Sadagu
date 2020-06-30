@@ -4,28 +4,187 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<link rel="stylesheet" href="/stylesheets/write/write.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script>
+		$('.content').fadeIn(11500).delay(3500).fadeOut(11500);
+
+
+		function resetImage(input) {
+			input.value = '';
+			input.onchange();
+		}
+
+		function readImage(input) {
+			var receiver = input.nextElementSibling.nextElementSibling;
+			input.setAttribute('title', input.value.replace(/^.*[\\/]/, ''));
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					receiver.style.backgroundImage = 'url(' + e.target.result + ')';
+				};
+				reader.readAsDataURL(input.files[0]);
+			} else receiver.style.backgroundImage = 'none';
+		}
+	</script>
 </head>
 
 <body>
-	<form action="/users/writer/submit" enctype="multipart/form-data" method="post">
+	<div id="headPage">
+		<div id="top">
+			<div>
+				<span class="number">+ 82 010 1234 5678</span>
+				<span class="email">info@gmail.com</span>
+			</div>
+			<span class="space"></span>
+			<div id="headRight">
+				<span>Hello! 1000hg</span>
+				<form action="/users/mypage">
+					<input type="submit" class="a" value="My Page">
+				</form>
 
-		<input type="file" name="img" />
-		
-		<input type="text" name="minPrice" placeholder="minPrice">
-		<input type="text" name="unit" placeholder="unit">
-		<input type="text" name="maxTime" placeholder="maxTime">
-		<input type="text" name="explain" placeholder="explain">
-		<input type="text" name="origin" placeholder="origin">
-		<input type="text" name="count" placeholder="count">
-		<input type="text" name="name" placeholder="name">
-		<input type="text" name="deliverWay" placeholder="deliverWay">
-		<input type="text" name="deliverPrice" placeholder="deliverPrice">
-		<input type="text" name="bingingWay" placeholder="bingingWay">
+				<form action="/users/logout" method="post">
+					<input type="submit" class="a" value="Logout">
+				</form>
+				<!--<a href="#" class="a">My Page</a>
+				<a href="#" class="a">Logout</a>-->
+			</div>
+		</div>
+		<div id="middle">
+			<h1>Sadagu</h1>
+			<div class="searchContainer">
+				<form action="/users/writer/search" class="field-container" method="post">
+					<input type="text" placeholder="Search..." class="field" name="name" />
+					<div class="icons-container">
+						<div class="icon-search"></div>
+						<div class="icon-close">
+							<div class="x-up"></div>
+							<div class="x-down"></div>
+						</div>
+					</div>
+				</form>
+				<img src="/images/main/a.jpg" alt="" class="img1">
+				<form action="/users/writer" id="moveWrite">
+					<input type="submit" value="Write">
+				</form>
+				<!--<span>Write</span>-->
+			</div>
+		</div>
+		<div id="foot">
+			<ul>
+				<li>Home</li>
+				<li>About</li>
+				<li>Pages</li>
+				<li>Shop</li>
+				<li>Blog</li>
+				<li>Contact</li>
+			</ul>
 
-		<input type="submit">
-		
-	</form>
-	
-</body>
+		</div>
+	</div>
 
-</html>
+	<div id="borderPage"></div>
+
+
+
+	<div id="writePage">
+		<div>
+			<h1>Write Page</h1>
+		</div>
+
+		<form action="/users/writer/submit" enctype="multipart/form-data" method="post" class="sendWrite">
+			<div class="file-image">
+				<input id="_" type="file" onchange="readImage(this)" title=""  name="img" />
+				<div class="reset" onclick="resetImage(this.previousElementSibling)"></div>
+				<label for="_" class="image"></label>
+			</div>
+
+			<div class="writeForm">
+				<input type='date' class="input" name="maxTime" />
+				<div>
+					<input type="text" placeholder="최소 가격"  name="minPrice" class="input">
+					<input type="text" placeholder="금액 단위"  name="unit" class="input">
+				</div>
+				<input type="text" placeholder="설명" name="explain" class="input explain">
+				<div>
+					<input type="text" placeholder="원산지" name="origin" class="input">
+					<input type="text" placeholder="수량" name="count"  class="input">
+					<input type="text" placeholder="제품 이름" name="name" class="input">
+				</div>
+				<div>
+					<input type="text" placeholder="배송 방법" name="deliverWay" class="input">
+					<input type="text" placeholder="배송 가격" name="deliverPrice" class="input">
+				</div>
+			</div>
+
+			<div class="buttons">
+				<button class="pulse" type="submit">작성</button>
+			</div>
+		</form>
+	</div>
+
+
+
+
+
+
+
+	<div class="about">
+		<div id="aboutFirst" class="aboutContainer">
+			<div class="aboutTitle">About US</div>
+			<div class="aboutContent">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</div>
+		</div>
+		<div id="aboutSecond" class="aboutContainer">
+			<div class="aboutTitle">CATEGORIES</div>
+			<div class="aboutContent">
+				<p>Fashion Sneakers</p>
+				<p>Jackets</p>
+				<p>Outdoor Shop</p>
+				<p>Pants</p>
+				<p>Shirts & Tops</p>
+				<p>Swim Shop</p>
+				<p>Swimwear</p>
+			</div>
+		</div>
+
+		<div id="aboutThird" class="aboutContainer">
+			<div class="aboutTitle">MY ACCOUNT</div>
+			<div class="aboutContent">
+				<p>Orders</p>
+				<p>Jackets</p>
+				<p>Compare</p>
+				<p>Wishlist</p>
+				<p>Log In</p>
+				<p>Register</p>
+			</div>
+		</div>
+
+
+		<div id="aboutFourth" class="aboutContainer">
+			<div class="aboutTitle">CONTACT INFO</div>
+			<div class="aboutContent" id="aboutFourthConainer">
+				<div>
+					<img src="/images/main/position.png" alt="">
+					<p id="firstP">c/o Giunti International Division Via G.B. Pirelli, 30 20124 Milan</p>
+				</div>
+
+
+				<div>
+					<img src="/images/main/phone.png" alt="">
+					<p>+025 2155 3255</p>
+				</div>
+
+
+				<div>
+					<img src="/images/main/mail.png" alt="">
+					<p>info@gmail.com</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div id="footPage">
+		<span>Copyright © 2020. All Rights Reserved.</span>
+	</div>
+</body></html>

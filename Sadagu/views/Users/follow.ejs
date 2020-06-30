@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<% if(follow.length > 0) { %>
+
+			<% for( var i = 0; i < follow.length; i++) { %>
+			
+
+			<div>
+				<p><%= follow[i].followerId %> </p>
+				<form action="/users/sellerInfo/<%= follow[i].followerId %>/1">
+					<button type="submit">작성자 정보</button>
+				</form>
+				
+				<form action="/users/follow/unFollow/<%= follow[i].followId %>/<%= follow[i].followerId %>" method="post">
+					<button type="submit">언팔로우</button>
+				</form>
+			</div>
+			<hr>
+
+
+			<% } %>
+
+		<% } else {%>
+		<div>Not Exist</div>
+		<% } %>
+</body>
+</html>

@@ -1,57 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<link rel="stylesheet" href="/stylesheets/mypage/mypage.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script>
+
+	</script>
 </head>
+
 <body>
+	<div id="headPage">
+		<div id="top">
+			<div>
+				<span class="number">+ 82 010 1234 5678</span>
+				<span class="email">info@gmail.com</span>
+			</div>
+			<span class="space"></span>
+			<div id="headRight">
+				<span>Hello! 1000hg</span>
+				<form action="/users/mypage">
+					<input type="submit" class="a" value="My Page">
+				</form>
 
-	<p>이름 : <%= user.name %></p>
+				<form action="/users/logout" method="post">
+					<input type="submit" class="a" value="Logout">
+				</form>
+				<!--<a href="#" class="a">My Page</a>
+				<a href="#" class="a">Logout</a>-->
+			</div>
+		</div>
+		<div id="middle">
+			<h1>Sadagu</h1>
+			<div class="searchContainer">
+				<form action="/users/writer/search" class="field-container" method="post">
+					<input type="text" placeholder="Search..." class="field" name="name" />
+					<div class="icons-container">
+						<div class="icon-search"></div>
+						<div class="icon-close">
+							<div class="x-up"></div>
+							<div class="x-down"></div>
+						</div>
+					</div>
+				</form>
+				<img src="/images/main/a.jpg" alt="" class="img1">
+				<form action="/users/writer" id="moveWrite">
+					<input type="submit" value="Write">
+				</form>
+				<!--<span>Write</span>-->
+			</div>
+		</div>
+		<div id="foot">
+			<ul>
+				<li>Home</li>
+				<li>About</li>
+				<li>Pages</li>
+				<li>Shop</li>
+				<li>Blog</li>
+				<li>Contact</li>
+			</ul>
 
-	<p>생년월일 : <%= user.birth %></p>
-	<p>전화번호 : <%= user.phoneNum %></p>
-	<p>email : <%= user.eMail %></p>
-	<p>계좌번호 : <%= user.account %></p>
-	<p>주소 : <%= user.address %></p>
-	<p>신용도 : <%= user.credit %></p>
-	
-	<form action="/users/writer">
-		<button>writer</button>
-	</form>
-	
-	
-	<form action="/users/edit">
-		<button>edit</button>
-	</form>
-	
-	
-	<div>
-		<% if(write.length > 0) { %>
+		</div>
+	</div>
 
-			<% for( var i = 0; i < write.length; i++) { %>
+	<div id="borderPage"></div>
+
+
+
+	<div id="myPage">
+		<div id="userInfo">
+			<div id="profile">
+				<img src="/images/mypage/profile.png" alt="">
+			</div>
+			<div id="info">
+				<p>이름 : <%= user.name %></p>
+
+				<p>생년월일 : <%= user.birth %></p>
+
+				<p>전화번호 : <%= user.phoneNum %></p>
+
+				<p>email : <%= user.eMail %></p>
+
+				<p>계좌번호 : <%= user.account %></p>
+
+				<p>주소 : <%= user.address %></p>
+
+				<p>신용도 : <%= user.credit %></p>
+
+			</div>
+
+		</div>
+
+		<div id="findAnotherUser">
+			<div>
+				<form action="/users/edit">
+					<button id="editInfo" type="submit">정보 수정</button>
+				</form>
+				
+				<form action="/users/follow/find">
+					<button id="editInfo" type="submit">친구 목록</button>
+				</form>
+			</div>
 			
+			<form action="/users/realTimePrice/search">
+				<input type="text" name="name">
+				<input type="submit">
+			</form>
+			
+			<form action="/users/writer/buyList/1">
+				<button>구매 목록</button>
+				
+			</form>
+
+		</div>
+
+
+		<div id="mainPage">
+			<span class="mainTitle">My Products</span>
+			<div>
+				<a href="#" class="showAll">Show more Products</a>
+			</div>
+
+			<div class="productsContainer">
+				<% for(var i = (writeInfo.page * writeInfo.page_num) - writeInfo.page_num; i < (writeInfo.page * writeInfo.page_num); i++) { %>
+				<% if(i < writeInfo.length) { %>
+				<div class="product" onclick="location.href='/users/writer/read/<%= write[i]._id %>' ">
+					<img src="/users/img/<%= write[i]._id %>" alt="">
+					<div class="productTitle"><%= write[i].name %></div>
+					<div><%= write[i].price %></div>
+					<div class="productMiddle">
+						<span>입찰 <%= write[i].buyCount %></span>
+						<span>조회 <%= write[i].watcher %></span>
+					</div>
+					<div>판매자 : <%= write[i].writer %></div>
+					<div>● <%= write[i].maxTime %></div>
+
+					<button>수정</button>
+					<button>삭제</button>
+				</div>
+
+				<% } %>
+
+				<% } %>
+			</div>
+
+
 
 			<div>
-				<div onclick="location.href ='/users/writer/read/<%= write[i]._id %>'">
-					<p><%= write[i].name %> </p>
-					<p><%= write[i].unit %> </p>
-					<p><%= write[i].maxTime %> </p>
-					<p><%= write[i].minTime %> </p>
-					<p><%= write[i].count %> </p>
-				</div>
-				<form action="/users/writer/delete/<%= write[i]._id %>" method="post">
-					<input type="submit" value="삭제">
+				<form name="paging">
+					<input type="hidden" name="name">
 				</form>
-	
+
+				<%
+            for(var j = 0; j < writeInfo.length / writeInfo.page_num; j++){
+            %>
+				[<a href="/users/mypage/<%= j + 1 %>"><%= j + 1 %></a>]
+				<%
+            }
+            %>
+
+
 			</div>
-			<hr>
 
 
-			<% } %>
+		</div>
+	</div>
 
-		<% } else {%>
-		<div>Not Exist</div>
-		<% } %>
+
+
+
+	<div class="about">
+		<div id="aboutFirst" class="aboutContainer">
+			<div class="aboutTitle">About US</div>
+			<div class="aboutContent">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</div>
+		</div>
+		<div id="aboutSecond" class="aboutContainer">
+			<div class="aboutTitle">CATEGORIES</div>
+			<div class="aboutContent">
+				<p>Fashion Sneakers</p>
+				<p>Jackets</p>
+				<p>Outdoor Shop</p>
+				<p>Pants</p>
+				<p>Shirts & Tops</p>
+				<p>Swim Shop</p>
+				<p>Swimwear</p>
+			</div>
+		</div>
+
+		<div id="aboutThird" class="aboutContainer">
+			<div class="aboutTitle">MY ACCOUNT</div>
+			<div class="aboutContent">
+				<p>Orders</p>
+				<p>Jackets</p>
+				<p>Compare</p>
+				<p>Wishlist</p>
+				<p>Log In</p>
+				<p>Register</p>
+			</div>
+		</div>
+
+
+		<div id="aboutFourth" class="aboutContainer">
+			<div class="aboutTitle">CONTACT INFO</div>
+			<div class="aboutContent" id="aboutFourthConainer">
+				<div>
+					<img src="/images/main/position.png" alt="">
+					<p id="firstP">c/o Giunti International Division Via G.B. Pirelli, 30 20124 Milan</p>
+				</div>
+
+
+				<div>
+					<img src="/images/main/phone.png" alt="">
+					<p>+025 2155 3255</p>
+				</div>
+
+
+				<div>
+					<img src="/images/main/mail.png" alt="">
+					<p>info@gmail.com</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div id="footPage">
+		<span>Copyright © 2020. All Rights Reserved.</span>
 	</div>
 </body>
+
 </html>

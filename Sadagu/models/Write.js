@@ -2,10 +2,9 @@ var mongoose = require('mongoose');
 
 var WriteSchema = new mongoose.Schema({
 	img: { data: Buffer, contentType: String },
-	url : {type: String},
 	minPrice : {type: String, required: true},
 	maxPrice : {type: Number, required: true},
-	unit : {type: String, required: true},
+	unit : {type: Number, required: true},
 	minTime : {type: Date, required: true},
 	maxTime : {type: Date, required: true},
 	explain : {type: String, required: true},
