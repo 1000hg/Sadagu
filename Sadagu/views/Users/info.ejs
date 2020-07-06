@@ -21,7 +21,7 @@
 			<span class="space"></span>
 			<div id="headRight">
 				<span>Hello! 1000hg</span>
-				<form action="/users/mypage">
+				<form action="/users/mypage/1">
 					<input type="submit" class="a" value="My Page">
 				</form>
 
@@ -33,7 +33,7 @@
 			</div>
 		</div>
 		<div id="middle">
-			<h1>Sadagu</h1>
+			<a href="/users/main"><h1>Sadagu</h1></a>
 			<div class="searchContainer">
 				<form action="/users/writer/search" class="field-container" method="post">
 					<input type="text" placeholder="Search..." class="field" name="name" />
@@ -93,6 +93,13 @@
 				<form action="/users/follow/<%= user.id %>" method="post">
 					<button type="submit">팔로우</button>
 				</form>
+				
+				<form action="#">
+					<button type="submit">신용도 올리기</button>
+				</form>
+				<form action="#">
+					<button type="submit">신용도 내리기</button>
+				</form>
 			</div>
 		</div>
 
@@ -115,7 +122,7 @@
 						<span>조회 <%= write[i].watcher %></span>
 					</div>
 					<div>판매자 : <%= write[i].writer %></div>
-					<div>● <%= write[i].maxTime %></div>
+					<div>현재 가격 : <%= write[i].maxPrice %></div>
 
 					<button>수정</button>
 					<button>삭제</button>

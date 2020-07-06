@@ -20,6 +20,11 @@ html, body { margin: 0; padding: 0; overflow-x: hidden; }
 
 #middle { height: 100px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
 
+#middle a{
+	text-decoration: none;
+	color: black;
+}
+
 #middle h1 { font-family: Amarillo, sans-serif; }
 
 #moveWrite input { font-size: 15px; text-decoration: none; list-style: none; background-color: white; border: 0px; cursor: pointer; }

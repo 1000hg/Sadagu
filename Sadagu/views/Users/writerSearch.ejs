@@ -33,14 +33,21 @@
 				<span class="email">info@gmail.com</span>
 			</div>
 			<span class="space"></span>
-			<div>
+			<div id="headRight">
 				<span>Hello! 1000hg</span>
-				<a href="#" class="a">My Page</a>
-				<a href="#" class="a">Logout</a>
+				<form action="/users/mypage/1">
+					<input type="submit" class="a" value="My Page">
+				</form>
+				
+				<form action="/users/logout" method="post">
+					<input type="submit" class="a" value="Logout">
+				</form>
+				<!--<a href="#" class="a">My Page</a>
+				<a href="#" class="a">Logout</a>-->
 			</div>
 		</div>
 		<div id="middle">
-			<h1>Sadagu</h1>
+			<a href="/users/main"><h1>Sadagu</h1></a>
 			<div class="searchContainer">
 				<form action="" class="field-container">
 					<input type="text" placeholder="Search..." class="field" />
@@ -52,8 +59,10 @@
 						</div>
 					</div>
 				</form>
-				<img src="a.jpg" alt="" class="img1">
-				<span>Write</span>
+				<img src="/images/main/a.jpg" alt="" class="img1">
+				<form action="/users/writer" id="moveWrite">
+					<input type="submit" value="Write">
+				</form>
 			</div>
 		</div>
 		<div id="foot">

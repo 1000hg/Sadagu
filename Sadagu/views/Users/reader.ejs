@@ -8,6 +8,28 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script>
 		$('.content').fadeIn(11500).delay(3500).fadeOut(11500);
+
+
+	var countDownDate = new Date(<%- JSON.stringify(moment(write.maxTime).format('YYYY-MM-DD hh:mm:ss')) %>).getTime();
+
+	var x = setInterval(function() {
+	  var now = new Date().getTime();
+	  var distance = countDownDate - now;
+
+	  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+	  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+	  document.getElementById("demo").innerHTML = days + "일 " + hours + "시 "
+	  + minutes + "분 " + seconds + "초 ";
+
+	  if (distance < 0) {
+		clearInterval(x);
+		document.getElementById("demo").innerHTML = "EXPIRED";
+	  }
+	}, 1000);
+
 	</script>
 </head>
 
@@ -21,7 +43,7 @@
 			<span class="space"></span>
 			<div id="headRight">
 				<span>Hello! 1000hg</span>
-				<form action="/users/mypage">
+				<form action="/users/mypage/1">
 					<input type="submit" class="a" value="My Page">
 				</form>
 
@@ -33,7 +55,9 @@
 			</div>
 		</div>
 		<div id="middle">
-			<h1>Sadagu</h1>
+			<a href="/users/main">
+				<h1>Sadagu</h1>
+			</a>
 			<div class="searchContainer">
 				<form action="/users/writer/search" class="field-container" method="post">
 					<input type="text" placeholder="Search..." class="field" name="name" />
@@ -81,7 +105,10 @@
 			<div>
 				<div class="goodsTop">
 					<div>현재가 <%= write.maxPrice %>원</div>
-					<div>남은 시간 1일 6시간 16분 16초</div>
+					<div id="demo"></div>
+
+
+
 					<form action="/users/sellerInfo/<%= write.writer %>/1">
 						<button type="submit">작성자 정보</button>
 					</form>
@@ -90,7 +117,7 @@
 					<tbody>
 						<tr>
 							<td>경매 기간</td>
-							<td><%= write.minTime %>  ~  <%= write.maxTime %></td>
+							<td> <%= moment(write.minTime).format('YYYY-MM-DD hh:mm:ss') %> ~ <%= moment(write.maxTime).format('YYYY-MM-DD hh:mm:ss') %> </td>
 						</tr>
 						<tr>
 							<td>시작가</td>
@@ -144,7 +171,7 @@
 		</div>
 		<div class="goodsFoot">
 			<form action="/users/writer/read/buy/<%= write._id %>" method="post">
-				<input type="text" name="money">
+				<input type="text" name="money" id="inputMoney">
 				<div class="buttons">
 					<button class="pulse">입찰</button>
 				</div>
@@ -216,4 +243,6 @@
 	<div id="footPage">
 		<span>Copyright © 2020. All Rights Reserved.</span>
 	</div>
-</body></html>
+</body>
+
+</html>

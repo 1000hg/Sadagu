@@ -71,6 +71,8 @@ router.post('/follow/unFollow/:follow/:follower', follow.unFollow);
 
 router.get('/writer/buyList/:page', write.buyList);
 
+router.post('/writer/edit/:id', write.edit);
+
 
 
 //router.post('/check', user.check);

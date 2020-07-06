@@ -71,6 +71,11 @@ body {
 	align-items: center;
 }
 
+#middle a{
+	text-decoration: none;
+	color: black;
+}
+
 #middle h1 {
 	font-family: Amarillo, sans-serif;
 }
@@ -320,7 +325,7 @@ body {
 
 
 #myPage{
-	height: 1500px;
+	height: 500px;
 }
 
 #userInfo{
@@ -356,7 +361,6 @@ body {
 	font-family: Lato;
 }
 
-
 .showAll{
 	text-decoration: none;
 	font-size: 17px;
@@ -364,7 +368,6 @@ body {
 	font-family: Lato;
 	color: #2860e2;
 }
-
 
 .productsContainer {
 	display: flex;
@@ -390,7 +393,6 @@ body {
 	font-size: 20px;
 	margin-bottom: 30px;
 }
-
 
 
 

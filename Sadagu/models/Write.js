@@ -5,7 +5,7 @@ var WriteSchema = new mongoose.Schema({
 	minPrice : {type: String, required: true},
 	maxPrice : {type: Number, required: true},
 	unit : {type: Number, required: true},
-	minTime : {type: Date, required: true},
+	minTime : {type: Date, required: true, default: Date.now},
 	maxTime : {type: Date, required: true},
 	explain : {type: String, required: true},
 	origin : {type: String},

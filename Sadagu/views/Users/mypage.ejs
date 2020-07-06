@@ -21,7 +21,7 @@
 			<span class="space"></span>
 			<div id="headRight">
 				<span>Hello! 1000hg</span>
-				<form action="/users/mypage">
+				<form action="/users/mypage/1">
 					<input type="submit" class="a" value="My Page">
 				</form>
 
@@ -33,7 +33,9 @@
 			</div>
 		</div>
 		<div id="middle">
-			<h1>Sadagu</h1>
+			<a href="/users/main">
+				<h1>Sadagu</h1>
+			</a>
 			<div class="searchContainer">
 				<form action="/users/writer/search" class="field-container" method="post">
 					<input type="text" placeholder="Search..." class="field" name="name" />
@@ -98,74 +100,109 @@
 				<form action="/users/edit">
 					<button id="editInfo" type="submit">정보 수정</button>
 				</form>
-				
+
 				<form action="/users/follow/find">
 					<button id="editInfo" type="submit">친구 목록</button>
 				</form>
 			</div>
-			
+
 			<form action="/users/realTimePrice/search">
 				<input type="text" name="name">
 				<input type="submit">
 			</form>
-			
+
 			<form action="/users/writer/buyList/1">
 				<button>구매 목록</button>
-				
+
 			</form>
 
 		</div>
 
+	</div>
 
-		<div id="mainPage">
-			<span class="mainTitle">My Products</span>
-			<div>
-				<a href="#" class="showAll">Show more Products</a>
-			</div>
 
-			<div class="productsContainer">
-				<% for(var i = (writeInfo.page * writeInfo.page_num) - writeInfo.page_num; i < (writeInfo.page * writeInfo.page_num); i++) { %>
-				<% if(i < writeInfo.length) { %>
-				<div class="product" onclick="location.href='/users/writer/read/<%= write[i]._id %>' ">
-					<img src="/users/img/<%= write[i]._id %>" alt="">
-					<div class="productTitle"><%= write[i].name %></div>
-					<div><%= write[i].price %></div>
-					<div class="productMiddle">
-						<span>입찰 <%= write[i].buyCount %></span>
-						<span>조회 <%= write[i].watcher %></span>
-					</div>
-					<div>판매자 : <%= write[i].writer %></div>
-					<div>● <%= write[i].maxTime %></div>
+	<div id="mainPage">
+		<span class="mainTitle">My Products</span>
+		<div>
+			<a href="#" class="showAll">Show more Products</a>
+		</div>
 
-					<button>수정</button>
-					<button>삭제</button>
-				</div>
+		<div class="productsContainer">
+			<% if(write.length > 0) { %>
+				<% if(write.length < writeInfo.page_num) { %>
+					<% for(var i = 0; i < writeInfo.page_num - write.length; i++) { %>
+						<div class="product">
+							<div onclick="location.href='/users/writer/read/<%= write[i]._id %>' ">
+								<img src="/users/img/<%= write[i]._id %>" alt="">
+								<div class="productTitle"><%= write[i].name %></div>
+								<div><%= write[i].price %></div>
+								<div class="productMiddle">
+									<span>입찰 <%= write[i].buyCount %></span>
+									<span>조회 <%= write[i].watcher %></span>
+								</div>
+								<div>판매자 : <%= write[i].writer %></div>
+								<div>현재 가격 : <%= write[i].maxPrice %></div>
+							</div>
 
+							<form action="/users/writer/edit/<%= write[i]._id %>" method="post">
+								<button>수정</button>
+							</form>
+							<form action="/users/writer/delete/<%= write[i]._id %>" method="post">
+								<button>삭제</button>
+							</form>
+						</div>
+
+				
+				
+					<% } %>
+				<% } else { %>
+					<% for(var i = (writeInfo.page * writeInfo.page_num) - writeInfo.page_num; i < (writeInfo.page * writeInfo.page_num); i++) { %>
+					<%if(i == write.length)
+							 break;			%>
+						<div class="product">
+							<div onclick="location.href='/users/writer/read/<%= write[i]._id %>' ">
+								<img src="/users/img/<%= write[i]._id %>" alt="">
+								<div class="productTitle"><%= write[i].name %></div>
+								<div><%= write[i].price %></div>
+								<div class="productMiddle">
+									<span>입찰 <%= write[i].buyCount %></span>
+									<span>조회 <%= write[i].watcher %></span>
+								</div>
+								<div>판매자 : <%= write[i].writer %></div>
+								<div>현재 가격 : <%= write[i].maxPrice %></div>
+							</div>
+
+							<form action="/users/writer/edit/<%= write[i]._id %>" method="post">
+								<button>수정</button>
+							</form>
+							<form action="/users/writer/delete/<%= write[i]._id %>" method="post">
+								<button>삭제</button>
+							</form>
+						</div>
+
+					<% } %>
 				<% } %>
+			<% } %>
+			
+		</div>
 
-				<% } %>
-			</div>
 
 
+		<div>
+			<form name="paging">
+				<input type="hidden" name="name">
+			</form>
 
-			<div>
-				<form name="paging">
-					<input type="hidden" name="name">
-				</form>
-
-				<%
-            for(var j = 0; j < writeInfo.length / writeInfo.page_num; j++){
-            %>
+		<% if(write.length > 0) { %>
+			<%for(var j = 0; j < write.length / writeInfo.page_num; j++){%>
 				[<a href="/users/mypage/<%= j + 1 %>"><%= j + 1 %></a>]
-				<%
-            }
-            %>
-
-
-			</div>
-
+				
+			<% } %>
+		<% } %>
 
 		</div>
+
+
 	</div>
 
 

@@ -72,6 +72,11 @@ body {
 	align-items: center;
 }
 
+#middle a{
+	text-decoration: none;
+	color: black;
+}
+
 #middle h1 {
 	font-family: Amarillo, sans-serif;
 }
@@ -393,7 +398,16 @@ body {
 	width: 700px;
 }
 
-.goodsFoot{
+#inputMoney{
+  width: 250px;
+  padding: 15px 12px;
+  border: 1px solid #e5e5e5;
+  border-bottom: 2px solid #ddd;
+  background: #f2f2f2;
+  color: #555;
+}
+
+.goodsFoot form{
 	display: flex;
 	justify-content: center;
 	align-items: center;

@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>main</title>
 	<link rel="stylesheet" href="/stylesheets/main/main.css">
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script>
@@ -33,7 +33,7 @@
 			</div>
 		</div>
 		<div id="middle">
-			<h1>Sadagu</h1>
+			<a href="/users/main"><h1>Sadagu</h1></a>
 			<div class="searchContainer">
 				<form action="/users/writer/search/1" class="field-container" method="post">
 					<input type="text" placeholder="Search..." class="field" name="name"/>
@@ -73,23 +73,41 @@
 				<a  href="#" class="showAll">Show more Products</a>
 			</div>
 		<div class="productsContainer">
-		
-			<% for(var i = 0; i < 4; i++) { %>
-			<div class="product" onclick="location.href='/users/writer/read/<%= write[i]._id %>' ">
-				<img src="/users/img/<%= write[i]._id %>" alt="">
-				<div class="productTitle"><%= write[i].name %></div>
-				<div><%= write[i].price %></div>
-				<div class="productMiddle">
-					<span>입찰 <%= write[i].buyCount %></span>
-					<span>조회 <%= write[i].watcher %></span>
-				</div>
-				<div>판매자 : <%= write[i].writer %></div>
-				<div>● <%= write[i].maxTime %></div>
-
-			</div>
 			
-			<% } %>
+			<% if(write2.length > 0) { %>
+				<% if(write2.length < 4) { %>
+					<% for(var i = 0; i < 4 - write2.length; i++) { %>
+						<div class="product" onclick="location.href='/users/writer/read/<%= write2[i]._id %>' ">
+							<img src="/users/img/<%= write2[i]._id %>" alt="">
+							<div class="productTitle"><%= write2[i].name %></div>
+							<div><%= write2[i].price %></div>
+							<div class="productMiddle">
+								<span>입찰 <%= write2[i].buyCount %></span>
+								<span>조회 <%= write2[i].watcher %></span>
+							</div>
+							<div>판매자 : <%= write2[i].writer %></div>
+							<div>현재 가격 : <%= write2[i].maxPrice %></div>
 
+						</div>
+					<% } %>
+				<% } else { %>
+					<% for(var i = 0; i < 4; i++) { %>
+						<div class="product" onclick="location.href='/users/writer/read/<%= write2[i]._id %>' ">
+							<img src="/users/img/<%= write2[i]._id %>" alt="">
+							<div class="productTitle"><%= write2[i].name %></div>
+							<div><%= write2[i].price %></div>
+							<div class="productMiddle">
+								<span>입찰 <%= write2[i].buyCount %></span>
+								<span>조회 <%= write2[i].watcher %></span>
+							</div>
+							<div>판매자 : <%= write2[i].writer %></div>
+							<div>현재 가격 : <%= write2[i].maxPrice %></div>
+
+						</div>
+					<% } %>
+				<% } %>
+			<% } %>
+		
 		</div>
 
 
@@ -119,20 +137,40 @@
 			<a  href="#" class="showAll">Show more Products</a>
 		</div>
 		<div class="productsContainer">
-			<% for(var i = 0; i < 4; i++) { %>
-				<div class="product" onclick="location.href='/users/writer/read/<%= write[i]._id %>'">
-					<img src="/users/img/<%= write[i]._id %>" alt="">
-					<div class="productTitle"><%= write[i].name %></div>
-					<div><%= write[i].price %></div>
-					<div class="productMiddle">
-						<span>입찰 <%= write[i].buyCount %></span>
-						<span>조회 <%= write[i].watcher %></span>
-					</div>
-					<div>판매자 : <%= write[i].writer %></div>
-					<div>● <%= write[i].maxTime %></div>
+			<% if(write1.length > 0) { %>
+				<% if(write1.length < 4) { %>
+					<% for(var i = 0; i < 4 - write1.length; i++) { %>
+						<div class="product" onclick="location.href='/users/writer/read/<%= write1[i]._id %>' ">
+							<img src="/users/img/<%= write1[i]._id %>" alt="">
+							<div class="productTitle"><%= write1[i].name %></div>
+							<div><%= write1[i].price %></div>
+							<div class="productMiddle">
+								<span>입찰 <%= write1[i].buyCount %></span>
+								<span>조회 <%= write1[i].watcher %></span>
+							</div>
+							<div>판매자 : <%= write1[i].writer %></div>
+							<div>현재 가격 : <%= write1[i].maxPrice %></div>
 
-				</div>
+						</div>
+					<% } %>
+				<% } else { %>
+					<% for(var i = 0; i < 4; i++) { %>
+						<div class="product" onclick="location.href='/users/writer/read/<%= write1[i]._id %>' ">
+							<img src="/users/img/<%= write1[i]._id %>" alt="">
+							<div class="productTitle"><%= write1[i].name %></div>
+							<div><%= write1[i].price %></div>
+							<div class="productMiddle">
+								<span>입찰 <%= write1[i].buyCount %></span>
+								<span>조회 <%= write1[i].watcher %></span>
+							</div>
+							<div>판매자 : <%= write1[i].writer %></div>
+							<div>현재 가격 : <%= write1[i].maxPrice %></div>
+
+						</div>
+					<% } %>
+				<% } %>
 			<% } %>
+		
 		</div>
 	</div>
 
