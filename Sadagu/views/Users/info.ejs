@@ -94,14 +94,15 @@
 					<button type="submit">팔로우</button>
 				</form>
 				
-				<form action="#">
+				<form action="/users/giveCredit/<%= user.id %>" method="post">
 					<button type="submit">신용도 올리기</button>
 				</form>
-				<form action="#">
+				<form action="/users/deleteCredit/<%= user.id %>" method="post">
 					<button type="submit">신용도 내리기</button>
 				</form>
 			</div>
 		</div>
+	</div>
 
 
 		<div id="mainPage">
@@ -111,26 +112,49 @@
 			</div>
 
 			<div class="productsContainer">
-				<% for(var i = (writeInfo.page * writeInfo.page_num) - writeInfo.page_num; i < (writeInfo.page * writeInfo.page_num); i++) { %>
-				<% if(i < writeInfo.length) { %>
-				<div class="product" onclick="location.href='/users/writer/read/<%= write[i]._id %>' ">
-					<img src="/users/img/<%= write[i]._id %>" alt="">
-					<div class="productTitle"><%= write[i].name %></div>
-					<div><%= write[i].price %></div>
-					<div class="productMiddle">
-						<span>입찰 <%= write[i].buyCount %></span>
-						<span>조회 <%= write[i].watcher %></span>
-					</div>
-					<div>판매자 : <%= write[i].writer %></div>
-					<div>현재 가격 : <%= write[i].maxPrice %></div>
+			<% if(write.length > 0) { %>
+				<% if(write.length < writeInfo.page_num) { %>
+					<% for(var i = 0; i < writeInfo.page_num - write.length; i++) { %>
+						<div class="product">
+							<div onclick="location.href='/users/writer/read/<%= write[i]._id %>' ">
+								<img src="/users/img/<%= write[i]._id %>" alt="">
+								<div class="productTitle"><%= write[i].name %></div>
+								<div><%= write[i].price %></div>
+								<div class="productMiddle">
+									<span>입찰 <%= write[i].buyCount %></span>
+									<span>조회 <%= write[i].watcher %></span>
+								</div>
+								<div>판매자 : <%= write[i].writer %></div>
+								<div>현재 가격 : <%= write[i].maxPrice %></div>
+							</div>
 
-					<button>수정</button>
-					<button>삭제</button>
-				</div>
+						</div>
 
+				
+				
+					<% } %>
+				<% } else { %>
+					<% for(var i = (writeInfo.page * writeInfo.page_num) - writeInfo.page_num; i < (writeInfo.page * writeInfo.page_num); i++) { %>
+					<%if(i == write.length)
+							 break;			%>
+						<div class="product">
+							<div onclick="location.href='/users/writer/read/<%= write[i]._id %>' ">
+								<img src="/users/img/<%= write[i]._id %>" alt="">
+								<div class="productTitle"><%= write[i].name %></div>
+								<div><%= write[i].price %></div>
+								<div class="productMiddle">
+									<span>입찰 <%= write[i].buyCount %></span>
+									<span>조회 <%= write[i].watcher %></span>
+								</div>
+								<div>판매자 : <%= write[i].writer %></div>
+								<div>현재 가격 : <%= write[i].maxPrice %></div>
+							</div>
+
+						</div>
+
+					<% } %>
 				<% } %>
-
-				<% } %>
+			<% } %>
 			</div>
 
 
@@ -140,20 +164,18 @@
 					<input type="hidden" name="name">
 				</form>
 
-				<%
-            for(var j = 0; j < writeInfo.length / writeInfo.page_num; j++){
-            %>
+								<% if(write.length > 0) { %>
+			<%for(var j = 0; j < write.length / writeInfo.page_num; j++){%>
 				[<a href="/users/mypage/<%= j + 1 %>"><%= j + 1 %></a>]
-				<%
-            }
-            %>
+				
+			<% } %>
+		<% } %>
 
 
 			</div>
 
 
 		</div>
-	</div>
 			
 
 

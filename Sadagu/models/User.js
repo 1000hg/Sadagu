@@ -9,7 +9,7 @@ var UserSchema = new mongoose.Schema({
 	eMail : {type: String, required: true, unique: true},
 	account : {type: String, required: true, unique: true},
 	address : {type: String, required: true},
-	credit : {type: String, required: true}
+	credit : {type: Number, required: true}
 });
 
 module.exports = mongoose.model('User', UserSchema); 

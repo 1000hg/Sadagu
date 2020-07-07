@@ -73,6 +73,10 @@ router.get('/writer/buyList/:page', write.buyList);
 
 router.post('/writer/edit/:id', write.edit);
 
+router.post('/giveCredit/:writeId', user.giveCredit);
+
+router.post('/deleteCredit/:writeId', user.deletCredit);
+
 
 
 //router.post('/check', user.check);

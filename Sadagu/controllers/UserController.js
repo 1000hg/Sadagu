@@ -59,19 +59,17 @@ userController.postLogin = function (req, res) {
 userController.main = function (req, res) {
 
 	if (req.session.logined) {
-		Write.find().sort('-watcher').exec(function(err, write1) {
-			if(err){
+		Write.find().sort('-watcher').exec(function (err, write1) {
+			if (err) {
 				console.log(err);
-			}
-			else{
-				Write.find().sort('-buyer').exec(function(err, write2) {
-					if(err){
+			} else {
+				Write.find().sort('-buyCount').exec(function (err, write2) {
+					if (err) {
 						console.log(err);
-					}
-					else{
+					} else {
 						res.render('../views/Users/main', {
-							write1 : write1,
-							write2 : write2
+							write1: write1,
+							write2: write2
 						})
 					}
 				})
@@ -127,12 +125,11 @@ userController.save = function (req, res) {
 			var e = "";
 			if (err.code == 11000) {
 				res.render('../views/Users/err3.ejs')
-			}else{
+			} else {
 				res.render('../views/Users/err2.ejs')
 			}
-			
+
 		} else {
-			console.log("Success save");
 			saveUserInfo(user);
 			res.redirect("/users/login");
 		}
@@ -219,7 +216,6 @@ userController.sellerInfo = function (req, res) {
 						if (req.session.logined) {
 							writeInfo.name = write.name;
 							writeInfo.length = result;
-							console.log(writeInfo);
 							res.render('../views/Users/info', {
 								user: user,
 								write: write,
@@ -260,14 +256,12 @@ userController.mypage = function (req, res) {
 
 		else if (!user) {
 			res.render('../views/Users/err1');
-		}
-		else {
+		} else {
 			Write.find({
 				writer: user.id
 			}, function (err, write) {
 				if (req.session.logined) {
 					//writeInfo.name = write.name;
-					console.log(write.length + " " + writeInfo.page_num * writeInfo.page);
 					res.render('../views/Users/mypage', {
 						user: user,
 						write: write,
@@ -340,6 +334,89 @@ userController.update = function (req, res) {
 		}
 
 	})
+}
+
+
+userController.giveCredit = function (req, res) {
+
+	var writeId = req.params.writeId;
+
+	User.findOne({
+		id: writeId
+	}, function (err, user) {
+		if (err) console.log("505Error");
+		else if (!user) return res.status(404).json({
+			error: 'user not found'
+		});
+		else {
+			var credit = user.credit + 1;
+			console.log(credit);
+			User.findOneAndUpdate({
+				id: writeId
+			}, {
+				$set: {
+					credit: credit
+				}
+			}, {
+				new: true
+			}, function (err, doc) {
+				if (err)
+					console.log(err);
+				else {
+					Write.find({}, function (err, write) {
+						if (!err) {
+							res.redirect("/users/sellerInfo/" + user.id + "/1");
+						} else {
+							console.log(err);
+						}
+					});
+				}
+
+			})
+		}
+	});
+}
+
+
+userController.deletCredit = function(req, res){
+	
+	var writeId = req.params.writeId;
+	
+	User.findOne({
+		id: writeId
+	}, function (err, user) {
+		if (err) console.log("505Error");
+		else if (!user) return res.status(404).json({
+			error: 'user not found'
+		});
+		else {
+			var credit = user.credit - 1;
+			console.log(credit);
+			User.findOneAndUpdate({
+				id: writeId
+			}, {
+				$set: {
+					credit: credit
+				}
+			}, {
+				new: true
+			}, function (err, doc) {
+				if (err)
+					console.log(err);
+				else {
+					Write.find({}, function (err, write) {
+						if (!err) {
+							res.redirect("/users/sellerInfo/" + user.id + "/1");
+						} else {
+							console.log(err);
+						}
+					});
+				}
+
+			})
+		}
+	});
+	
 }
 
 
