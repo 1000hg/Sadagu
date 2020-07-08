@@ -93,7 +93,7 @@
 			<h1>Write Page</h1>
 		</div>
 
-		<form action="/users/writer/submit" enctype="multipart/form-data" method="post" class="sendWrite">
+		<form action="/users/writer/editWrite/<%= write._id %>" enctype="multipart/form-data" method="post" class="sendWrite">
 			<div class="file-image">
 				<input id="_" type="file" onchange="readImage(this)" title=""  name="img"/>
 				<div class="reset" onclick="resetImage(this.previousElementSibling)"></div>

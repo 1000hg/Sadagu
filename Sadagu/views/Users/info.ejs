@@ -114,7 +114,7 @@
 			<div class="productsContainer">
 			<% if(write.length > 0) { %>
 				<% if(write.length < writeInfo.page_num) { %>
-					<% for(var i = 0; i < writeInfo.page_num - write.length; i++) { %>
+					<% for(var i = 0; i < write.length; i++) { %>
 						<div class="product">
 							<div onclick="location.href='/users/writer/read/<%= write[i]._id %>' ">
 								<img src="/users/img/<%= write[i]._id %>" alt="">

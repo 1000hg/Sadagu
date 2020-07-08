@@ -77,6 +77,8 @@ router.post('/giveCredit/:writeId', user.giveCredit);
 
 router.post('/deleteCredit/:writeId', user.deletCredit);
 
+router.post('/writer/editWrite/:writeId', upload.single('img'), write.editWrite);
+
 
 
 //router.post('/check', user.check);

@@ -42,9 +42,7 @@ writeController.submit = function (req, res) {
 			console.log("Success save");
 			Write.find({}, function (err, write) {
 				if (!err) {
-					res.render('../views/Users/main', {
-						write: write,
-					})
+					res.redirect('/users/main')
 				} else {
 					console.log(err);
 				}
@@ -94,6 +92,55 @@ writeController.edit = function (req, res) {
 		}
 	})
 }
+
+
+
+writeController.editWrite = function(req, res){
+	
+	var writeId = req.params.writeId;
+	
+	var writer = new Write(req.body);
+	
+	console.log(writer);
+
+	writer.img.data = fs.readFileSync(req.file.path);
+	writer.img.contentType = 'image/png';
+	
+	
+	
+	Write.findOneAndUpdate({
+		_id: writeId
+	}, {
+		$set: {
+			name : writer.name,
+			explain : writer.explain,
+			deliverPrice : writer.deliverPrice,
+			deliverWay : writer.deliverWay,
+			maxTime : writer.maxTime,
+			minPrice : writer.minPrice,
+			unit : writer.unit,
+			origin : writer.origin,
+			count : writer.count,
+			img : { data : writer.img.data, contentType : writer.img.contentType}
+		}
+	}, {
+		new: true
+	}, function (err, doc) {
+		if (err)
+			console.log(err);
+		else {
+			Write.find({}, function (err, write) {
+				if (!err) {
+					res.redirect('/users/mypage/1');
+				} else {
+					console.log(err);
+				}
+			});
+		}
+
+	})
+}
+
 
 writeController.update = function (req, res) {
 

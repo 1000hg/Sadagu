@@ -76,7 +76,7 @@
 			
 			<% if(write2.length > 0) { %>
 				<% if(write2.length < 4) { %>
-					<% for(var i = 0; i < 4 - write2.length; i++) { %>
+					<% for(var i = 0; i < write2.length; i++) { %>
 						<div class="product" onclick="location.href='/users/writer/read/<%= write2[i]._id %>' ">
 							<img src="/users/img/<%= write2[i]._id %>" alt="">
 							<div class="productTitle"><%= write2[i].name %></div>
@@ -139,7 +139,7 @@
 		<div class="productsContainer">
 			<% if(write1.length > 0) { %>
 				<% if(write1.length < 4) { %>
-					<% for(var i = 0; i < 4 - write1.length; i++) { %>
+					<% for(var i = 0; i < write1.length; i++) { %>
 						<div class="product" onclick="location.href='/users/writer/read/<%= write1[i]._id %>' ">
 							<img src="/users/img/<%= write1[i]._id %>" alt="">
 							<div class="productTitle"><%= write1[i].name %></div>

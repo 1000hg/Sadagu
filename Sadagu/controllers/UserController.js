@@ -241,6 +241,7 @@ userController.sellerInfo = function (req, res) {
 userController.mypage = function (req, res) {
 
 	var user = req.session.user_id;
+	
 
 	var page = req.params.page;
 	var writeInfo = {
@@ -253,15 +254,11 @@ userController.mypage = function (req, res) {
 	}, function (err, user) {
 
 		if (err) console.log("505Error");
-
-		else if (!user) {
-			res.render('../views/Users/err1');
-		} else {
+		else {
 			Write.find({
 				writer: user.id
 			}, function (err, write) {
 				if (req.session.logined) {
-					//writeInfo.name = write.name;
 					res.render('../views/Users/mypage', {
 						user: user,
 						write: write,
