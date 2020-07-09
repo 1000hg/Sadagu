@@ -96,25 +96,46 @@
 		</div>
 
 		<div id="findAnotherUser">
-			<div>
-				<form action="/users/edit">
-					<button id="editInfo" type="submit">정보 수정</button>
-				</form>
 
-				<form action="/users/follow/find">
-					<button id="editInfo" type="submit">친구 목록</button>
+		<div id="navInfo">
+			<div class="goodsFoot">
+				<form action="/users/edit">
+					<div class="buttons">
+						<button class="pulse" type="submit">정보 수정</button>
+					</div>
 				</form>
 			</div>
 
+			<div class="goodsFoot">
+				<form action="/users/follow/find">
+					<div class="buttons">
+						<button class="pulse" type="submit">친구 목록</button>
+					</div>
+				</form>
+			</div>
+			
+			<div class="goodsFoot">
+				<form action="/users/writer/buyList/1">
+					<div class="buttons">
+						<button class="pulse">구매 목록</button>
+					</div>
+
+				</form>
+			</div>
+		</div>		
+
+
+			
+		<div class="goodsFoot">
+			<h2>실시간 물가 검색</h2>
 			<form action="/users/realTimePrice/search">
-				<input type="text" name="name">
-				<input type="submit">
+				<input type="text" name="name" id="searchProduct">
+				<div class="buttons">
+					<button class="pulse">검색</button>
+				</div>
 			</form>
+		</div>
 
-			<form action="/users/writer/buyList/1">
-				<button>구매 목록</button>
-
-			</form>
 
 		</div>
 
@@ -143,13 +164,15 @@
 								<div>판매자 : <%= write[i].writer %></div>
 								<div>현재 가격 : <%= write[i].maxPrice %></div>
 							</div>
-
-							<form action="/users/writer/edit/<%= write[i]._id %>" method="post">
-								<button>수정</button>
-							</form>
-							<form action="/users/writer/delete/<%= write[i]._id %>" method="post">
-								<button>삭제</button>
-							</form>
+							
+							<div id="navWriteInfo">
+								<form action="/users/writer/edit/<%= write[i]._id %>" method="post">
+									<button>수정</button>
+								</form>
+								<form action="/users/writer/delete/<%= write[i]._id %>" method="post">
+									<button>삭제</button>
+								</form>
+							</div>
 						</div>
 
 				

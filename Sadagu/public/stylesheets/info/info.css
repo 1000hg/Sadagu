@@ -1,49 +1,4 @@
-#mainPage {
-	width: 100%;
-	height: 800px;
-	text-align: center;
-	margin: 50px 0px;
-}
-
-
-.mainTitle {
-	font-size: 40px;
-	font-weight: bold;
-	font-family: Lato;
-}
-
-.showAll{
-	text-decoration: none;
-	font-size: 17px;
-	font-weight: bold;
-	font-family: Lato;
-	color: #2860e2;
-}
-
-.productsContainer {
-	display: flex;
-	color: white;
-}
-
-
-
-.product {
-	margin: 70px;
-	width: 300px;
-	height: 500px;
-	box-shadow: 10px 5px 5px black;
-	background-color: #39364a;
-}
-
-.product img {
-	width: 300px;
-	height: 350px;
-}
-
-.productTitle {
-	font-size: 20px;
-	margin-bottom: 30px;
-}@import url("https://fonts.googleapis.com/css?family=Lato:100,300,400");
+@import url("https://fonts.googleapis.com/css?family=Lato:100,300,400");
 @import url("https://fonts.googleapis.com/css?family=Roboto:100");
 @import url("https://fonts.googleapis.com/css?family=Inconsolata:700");
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
@@ -65,55 +20,7 @@ html, body { margin: 0; padding: 0; }
 
 #middle { height: 100px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
 
-#middle a{
-	text-decoration: none;
-	color: black;#mainPage {
-	width: 100%;
-	height: 800px;
-	text-align: center;
-	margin: 50px 0px;
-}
-
-
-.mainTitle {
-	font-size: 40px;
-	font-weight: bold;
-	font-family: Lato;
-}
-
-.showAll{
-	text-decoration: none;
-	font-size: 17px;
-	font-weight: bold;
-	font-family: Lato;
-	color: #2860e2;
-}
-
-.productsContainer {
-	display: flex;
-	color: white;
-}
-
-
-
-.product {
-	margin: 70px;
-	width: 300px;
-	height: 500px;
-	box-shadow: 10px 5px 5px black;
-	background-color: #39364a;
-}
-
-.product img {
-	width: 300px;
-	height: 350px;
-}
-
-.productTitle {
-	font-size: 20px;
-	margin-bottom: 30px;
-}
-}
+#middle a { text-decoration: none; color: black; }
 
 #middle h1 { font-family: Amarillo, sans-serif; }
 
@@ -160,9 +67,27 @@ html, body { margin: 0; padding: 0; }
 
 #borderPage { background-image: url("../../images/mypage/technology.jpg"); width: 100%; height: 300px; opacity: 0.5; }
 
-#myPage { height: 500; }
+#myPage { height: 500px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
+
+#userInfo { display: -webkit-box; display: -ms-flexbox; display: flex; }
 
 #userInfo { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
+
+#findAnotherUser { display: -webkit-box; display: -ms-flexbox; display: flex; }
+
+.goodsFoot form { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; margin-top: 30px; }
+
+.pulse:hover, .pulse:focus { -webkit-animation: pulse 1s; animation: pulse 1s; -webkit-box-shadow: 0 0 0 2em rgba(255, 255, 255, 0); box-shadow: 0 0 0 2em rgba(255, 255, 255, 0); }
+
+@-webkit-keyframes pulse { 0% { -webkit-box-shadow: 0 0 0 0 var(--hover); box-shadow: 0 0 0 0 var(--hover); } }
+
+@keyframes pulse { 0% { -webkit-box-shadow: 0 0 0 0 var(--hover); box-shadow: 0 0 0 0 var(--hover); } }
+.pulse { --color: #ef6eae; --hover: #ef8f6e; }
+
+.goodsFoot button { color: var(--color); -webkit-transition: 0.25s; transition: 0.25s; }
+.goodsFoot button:hover, .goodsFoot button:focus { border-color: var(--hover); color: black; }
+
+.goodsFoot button { background: none; border: 2px solid; font: inherit; line-height: 1; margin: 0.5em; padding: 1em 2em; }
 
 #editInfo { margin-bottom: 30px; }
 

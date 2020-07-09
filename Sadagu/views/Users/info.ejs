@@ -89,18 +89,30 @@
 		</div>
 
 		<div id="findAnotherUser">
-			<div>
+			<div class="goodsFoot">
 				<form action="/users/follow/<%= user.id %>" method="post">
-					<button type="submit">팔로우</button>
-				</form>
-				
-				<form action="/users/giveCredit/<%= user.id %>" method="post">
-					<button type="submit">신용도 올리기</button>
-				</form>
-				<form action="/users/deleteCredit/<%= user.id %>" method="post">
-					<button type="submit">신용도 내리기</button>
+					<div class="buttons">
+						<button type="submit" class="pulse">팔로우</button>
+					</div>
 				</form>
 			</div>
+
+			<div class="goodsFoot">
+				<form action="/users/giveCredit/<%= user.id %>" method="post">
+					<div class="buttons">
+						<button type="submit" class="pulse">신용도 올리기</button>
+					</div>
+				</form>
+			</div>
+			
+			<div class="goodsFoot">
+				<form action="/users/deleteCredit/<%= user.id %>" method="post">
+					<div class="buttons">
+					<button type="submit" class="pulse">신용도 내리기</button>
+					</div>
+				</form>
+			</div>
+
 		</div>
 	</div>
 
