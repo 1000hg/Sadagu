@@ -33,10 +33,8 @@ userController.postLogin = function (req, res) {
 		id: id,
 		password: password
 	}, function (err, user) {
-		if (err) console.log("505Error");
-		else if (!user) return res.status(404).json({
-			error: 'user not found'
-		});
+		if (err) res.render('../views/Users/err1');
+		else if (!user) res.render('../views/Users/err1')
 		else {
 			req.session.regenerate(function () {
 				req.session.logined = true;
@@ -150,8 +148,8 @@ userController.info = function (req, res) {
 	let transporter = nodemailer.createTransport({
 		service: 'gmail',
 		auth: {
-			user: '', // gmail 계정 아이디를 입력
-			pass: '' // gmail 계정의 비밀번호를 입력
+			user: 'alxzkf123@gmail.com', // gmail 계정 아이디를 입력
+			pass: 'pairy1@3tail' // gmail 계정의 비밀번호를 입력
 		}
 	});
 
@@ -161,20 +159,18 @@ userController.info = function (req, res) {
 
 		if (err) console.log("505Error");
 
-		else if (!user) return res.status(404).json({
-			error: 'user not found'
-		});
+		else if (!user) res.render('../views/Users/err1')
 		else {
 			let mailOptions = {
-				from: '', // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
+				from: 'alxzkf', // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
 				to: eMail, // 수신 메일 주소
 				subject: '[Sadagu] Find Your account', // 제목
-				text: 'id : ' + user.id + '\n\ password : ' + user.password // 내용
+				text: 'your Id : ' + user.id + '\n\ and your Password : ' + user.password // 내용
 			};
 
 			transporter.sendMail(mailOptions, function (error, info) {
 				if (error) {
-					console.log(error);
+					res.render('../views/Users/err1');
 				} else {
 					console.log('Email sent: ' + info.response);
 					res.redirect("/users/login");
@@ -317,7 +313,7 @@ userController.update = function (req, res) {
 		new: true
 	}, function (err, doc) {
 		if (err)
-			console.log(err);
+			res.render('../vuews/Users/err2')
 		else {
 			Write.find({}, function (err, write) {
 				if (!err) {

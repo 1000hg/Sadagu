@@ -30,14 +30,8 @@ writeController.submit = function (req, res) {
 	writer.save(function (err) {
 
 		if (err) {
-			var e = "";
-			if (err.code == 11000) {
-				e = "User already exists";
-				console.log(e);
-			}
-
 			console.log("Failed save");
-			res.redirect("/users/login");
+			res.render("../views/Users/err4");
 		} else {
 			console.log("Success save");
 			Write.find({}, function (err, write) {
@@ -359,8 +353,7 @@ writeController.buy = function (req, res) {
 	}, function (err, write) {
 		if (!err) {
 			if (Number(money) < write.unit) {
-				console.log(money + "     " + write.unit);
-				console.log("이건 좀..");
+				res.render("../views/Users/err5");
 			} else {
 				var buyCount = write.buyCount + 1;
 				var addUnit = write.maxPrice + Number(money);
